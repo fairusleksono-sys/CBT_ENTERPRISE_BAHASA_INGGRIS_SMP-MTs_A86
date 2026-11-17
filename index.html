@@ -1,0 +1,2625 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT Enterprise • UN Bahasa Inggris SMP/MTs (Paket A86)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Plus Jakarta Sans & Cinzel (untuk Sertifikat) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            serif: ['Cinzel', 'serif'],
+          },
+          colors: {
+            gold: {
+              50: '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              300: '#FCD34D',
+              400: '#FBBF24',
+              500: '#F59E0B',
+              600: '#D97706',
+              700: '#B45309',
+              800: '#92400E',
+              900: '#78350F',
+            },
+            crimson: {
+              50: '#FEF2F2',
+              100: '#FEE2E2',
+              200: '#FECACA',
+              300: '#FCA5A5',
+              400: '#F87171',
+              500: '#EF4444',
+              600: '#DC2626',
+              700: '#B91C1C',
+              800: '#991B1B',
+              900: '#7F1D1D',
+              950: '#450A0A',
+            }
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'glow': 'glow 2.5s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            glow: {
+              '0%': { boxShadow: '0 0 10px rgba(245, 158, 11, 0.25), 0 0 20px rgba(220, 38, 38, 0.15)' },
+              '100%': { boxShadow: '0 0 20px rgba(245, 158, 11, 0.55), 0 0 35px rgba(220, 38, 38, 0.35)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Proteksi Anti-Copy & Anti-Select saat ujian berlangsung */
+    .exam-protected {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+      -webkit-touch-callout: none !important;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.1);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #F59E0B, #DC2626);
+      border-radius: 9999px;
+    }
+
+    /* Background Futuristic Grid */
+    .bg-cyber-grid {
+      background-size: 32px 32px;
+      background-image: 
+        linear-gradient(to right, rgba(245, 158, 11, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 38, 38, 0.06) 1px, transparent 1px);
+    }
+
+    /* Print Styling khusus Sertifikat */
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #certificate-printable, #certificate-printable * {
+        visibility: visible !important;
+      }
+      #certificate-printable {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        z-index: 99999 !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-zinc-950 dark:text-slate-100 min-h-screen flex flex-col font-sans bg-cyber-grid transition-colors duration-300 overflow-x-hidden">
+
+  <!-- Toast / Notification Banner (Pengganti alert/confirm) -->
+  <div id="toast-container" class="fixed top-4 right-4 z-[90] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- Confirmation Modal Custom (Pengganti confirm()) -->
+  <div id="confirm-modal" class="fixed inset-0 z-[85] hidden items-center justify-center bg-black/75 backdrop-blur-sm p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-gold-500/40 rounded-2xl max-w-md w-full p-6 shadow-2xl transform transition-all">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-crimson-600 to-gold-500 flex items-center justify-center text-white text-lg shadow-lg">
+          <i id="confirm-icon" class="fas fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="confirm-title" class="text-lg font-bold text-slate-900 dark:text-white">Konfirmasi</h3>
+      </div>
+      <p id="confirm-message" class="text-sm text-slate-600 dark:text-zinc-300 leading-relaxed mb-6"></p>
+      <div class="flex justify-end gap-3">
+        <button id="confirm-cancel-btn" class="px-4 py-2.5 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-300 dark:hover:bg-zinc-700 transition">
+          Batal
+        </button>
+        <button id="confirm-ok-btn" class="px-5 py-2.5 rounded-xl text-sm font-semibold bg-gradient-to-r from-crimson-600 to-gold-500 text-white shadow-lg shadow-crimson-600/25 hover:opacity-95 transition">
+          Ya, Lanjutkan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCK OUT OVERLAY (Muncul Otomatis saat Pelanggaran / Pindah Tab / Kunci Layar / Menu Lock Out) -->
+  <div id="lockout-overlay" class="fixed inset-0 z-[100] hidden flex-col items-center justify-center bg-gradient-to-br from-zinc-950 via-crimson-950 to-zinc-950 text-white p-6 text-center overflow-y-auto">
+    <div class="absolute inset-0 bg-cyber-grid opacity-30 pointer-events-none"></div>
+    <div class="relative z-10 max-w-xl w-full bg-zinc-900/90 border-2 border-crimson-500/70 rounded-3xl p-8 shadow-[0_0_60px_rgba(220,38,38,0.45)] backdrop-blur-xl">
+      <div class="w-20 h-20 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-crimson-600 to-gold-500 flex items-center justify-center text-4xl text-white shadow-xl animate-bounce">
+        <i class="fas fa-lock"></i>
+      </div>
+      <span class="inline-block px-3.5 py-1 rounded-full text-xs font-bold tracking-widest uppercase bg-crimson-500/20 text-crimson-300 border border-crimson-500/40 mb-3" data-i18n="lockout_badge">
+        SISTEM KEAMANAN TERPICU • LOCK OUT
+      </span>
+      <h1 class="text-2xl sm:text-3xl font-extrabold bg-gradient-to-r from-gold-400 via-amber-200 to-crimson-400 bg-clip-text text-transparent mb-3" data-i18n="lockout_title">
+        APLIKASI TERKUNCI OTOMATIS
+      </h1>
+      <p id="lockout-reason-text" class="text-sm sm:text-base text-zinc-300 leading-relaxed mb-6">
+        Sistem mendeteksi Anda meninggalkan layar ujian (membuka tab baru, beralih aplikasi, atau mengunci layar perangkat). Sesi pengerjaan dihentikan demi menjaga integritas ujian.
+      </p>
+
+      <div class="bg-zinc-950/80 border border-gold-500/30 rounded-2xl p-4 mb-6 text-left text-xs sm:text-sm space-y-1.5">
+        <div class="flex justify-between">
+          <span class="text-zinc-400" data-i18n="lbl_student_name">Nama Murid:</span>
+          <span id="lock-student-name" class="font-bold text-gold-400">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-400" data-i18n="lbl_student_class">Kelas / Presensi:</span>
+          <span id="lock-student-class" class="font-semibold text-white">-</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-zinc-400" data-i18n="lbl_violation_time">Waktu Penguncian:</span>
+          <span id="lock-timestamp" class="font-mono text-crimson-400">-</span>
+        </div>
+      </div>
+
+      <button onclick="openAdminModal()" class="w-full py-3.5 px-6 rounded-xl font-bold text-sm bg-gradient-to-r from-gold-500 via-amber-500 to-crimson-600 text-zinc-950 hover:brightness-110 transition shadow-lg shadow-gold-500/25 flex items-center justify-center gap-2">
+        <i class="fas fa-user-shield"></i>
+        <span data-i18n="btn_admin_unlock">Buka Kunci Sesi (Otorisasi Admin)</span>
+      </button>
+
+      <p class="mt-5 text-[11px] text-zinc-500">
+        Enterprise CBT Security Engine • Created by <span class="text-gold-400 font-semibold">Ahmad Budi Leksono</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- HIDDEN ADMIN AUTHENTICATION & CONTROL MODAL -->
+  <div id="admin-modal" class="fixed inset-0 z-[110] hidden items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="bg-white dark:bg-zinc-900 border border-gold-500/50 rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-crimson-600 via-gold-500 to-crimson-600"></div>
+      <div class="flex items-center justify-between mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-crimson-600 flex items-center justify-center text-white shadow-md">
+            <i class="fas fa-shield-halved"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="admin_modal_title">Panel Otorisasi Administrator</h3>
+            <p class="text-xs text-slate-500 dark:text-zinc-400" data-i18n="admin_modal_sub">Akses Terbatas Pengawas & Proktor Ujian</p>
+          </div>
+        </div>
+        <button onclick="closeAdminModal()" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-500 hover:text-crimson-500 flex items-center justify-center transition">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Form Login Admin -->
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-zinc-400 mb-1.5" data-i18n="admin_user_lbl">Username Admin</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gold-500">
+              <i class="fas fa-user-lock"></i>
+            </span>
+            <input type="text" id="admin-username-input" autocomplete="off" required placeholder="••••••••"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 outline-none text-sm" />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-600 dark:text-zinc-400 mb-1.5" data-i18n="admin_pass_lbl">Password Tersembunyi</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-crimson-500">
+              <i class="fas fa-key"></i>
+            </span>
+            <input type="password" id="admin-password-input" autocomplete="new-password" required placeholder="••••••••••"
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 outline-none text-sm" />
+          </div>
+        </div>
+        <div id="admin-error-msg" class="hidden text-xs font-semibold text-crimson-500 bg-crimson-500/10 border border-crimson-500/30 rounded-lg p-2.5">
+          Username atau Password Administrator tidak valid!
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-crimson-600 to-gold-500 text-white shadow-lg hover:opacity-95 transition">
+          <i class="fas fa-unlock-keyhole mr-1.5"></i> <span data-i18n="admin_login_btn">Masuk & Buka Kontrol Admin</span>
+        </button>
+      </form>
+
+      <!-- Admin Control Panel (Tampil setelah login berhasil) -->
+      <div id="admin-control-panel" class="hidden space-y-4">
+        <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold flex items-center gap-2">
+          <i class="fas fa-check-circle text-base"></i>
+          <span data-i18n="admin_verified_msg">Otorisasi Admin Berhasil! Pilih tindakan kontrol di bawah ini:</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button onclick="adminUnlockSession()" class="p-3.5 rounded-xl bg-gold-500/15 hover:bg-gold-500/25 border border-gold-500/40 text-left transition group">
+            <div class="text-gold-500 font-bold text-sm mb-1 flex items-center gap-2">
+              <i class="fas fa-lock-open"></i> <span data-i18n="admin_act_unlock">Buka Lock Out</span>
+            </div>
+            <p class="text-[11px] text-slate-600 dark:text-zinc-400" data-i18n="admin_act_unlock_desc">Membuka kunci layar dan melanjutkan sesi ujian murid.</p>
+          </button>
+
+          <button onclick="adminFullReset()" class="p-3.5 rounded-xl bg-crimson-500/15 hover:bg-crimson-500/25 border border-crimson-500/40 text-left transition group">
+            <div class="text-crimson-500 font-bold text-sm mb-1 flex items-center gap-2">
+              <i class="fas fa-rotate-right"></i> <span data-i18n="admin_act_reset">Reset Total Ujian</span>
+            </div>
+            <p class="text-[11px] text-slate-600 dark:text-zinc-400" data-i18n="admin_act_reset_desc">Hapus semua jawaban, acak ulang soal, dan kembali ke awal.</p>
+          </button>
+        </div>
+
+        <!-- Live Monitor Ringkas untuk Admin -->
+        <div class="p-4 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 text-xs space-y-2">
+          <div class="font-bold text-gold-500 uppercase tracking-wider flex justify-between">
+            <span>Live Monitoring Proktor</span>
+            <span id="admin-live-score" class="font-mono text-crimson-500">Skor Saat Ini: 0</span>
+          </div>
+          <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+            <span>Terjawab / Benar:</span>
+            <span id="admin-live-stats" class="font-mono font-semibold text-slate-900 dark:text-white">0 / 0 dari 50</span>
+          </div>
+          <div class="pt-2 border-t border-slate-200 dark:border-zinc-800 flex justify-between items-center">
+            <span class="text-slate-500">Pembuat Aplikasi:</span>
+            <span class="font-bold text-gold-500">Ahmad Budi Leksono</span>
+          </div>
+        </div>
+
+        <button onclick="logoutAdminPanel()" class="w-full py-2.5 rounded-xl text-xs font-semibold bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 hover:bg-slate-300 dark:hover:bg-zinc-700 transition">
+          Tutup & Kunci Kembali Panel Admin
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APPLICATION SHELL -->
+  <div class="flex flex-1 min-h-screen relative">
+
+    <!-- Mobile Sidebar Backdrop -->
+    <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-30 hidden lg:hidden"></div>
+
+    <!-- SIDEBAR DASHBOARD (Enterprise Futuristic Gold & Crimson) -->
+    <aside id="app-sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-80 bg-white/95 dark:bg-zinc-900/95 border-r border-slate-200 dark:border-zinc-800/90 backdrop-blur-xl flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0 shadow-2xl lg:shadow-none">
+      
+      <!-- Brand Header -->
+      <div class="p-4 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <!-- Hidden Admin Trigger on Logo Badge (Double click or click gear) -->
+          <div onclick="openAdminModal()" title="Enterprise Security Core" class="cursor-pointer w-11 h-11 rounded-2xl bg-gradient-to-br from-gold-400 via-amber-500 to-crimson-600 p-0.5 shadow-lg shadow-gold-500/20 animate-glow">
+            <div class="w-full h-full bg-zinc-950 rounded-[14px] flex items-center justify-center text-gold-400 font-extrabold text-lg">
+              <i class="fas fa-atom"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="font-extrabold text-sm tracking-tight bg-gradient-to-r from-gold-500 to-crimson-500 bg-clip-text text-transparent">
+                CBT ENTERPRISE
+              </span>
+              <span class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-crimson-500/15 text-crimson-500 border border-crimson-500/30">
+                PRO
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-zinc-400 font-medium">UN Bahasa Inggris • A86</p>
+          </div>
+        </div>
+        <button onclick="toggleSidebar()" class="lg:hidden w-8 h-8 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-500 flex items-center justify-center">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Student Identity Summary Card -->
+      <div class="p-4 border-b border-slate-200 dark:border-zinc-800">
+        <div class="p-3.5 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200/70 dark:from-zinc-950 dark:to-zinc-900 border border-gold-500/30 relative overflow-hidden">
+          <div class="absolute -right-4 -top-4 w-16 h-16 rounded-full bg-gold-500/10 blur-xl"></div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-gold-600 dark:text-gold-400 flex items-center gap-1.5">
+              <i class="fas fa-id-card"></i> <span data-i18n="sidebar_student_card">Identitas Peserta</span>
+            </span>
+            <button onclick="showIdentityScreen()" class="text-[11px] font-semibold text-crimson-600 dark:text-crimson-400 hover:underline flex items-center gap-1" data-i18n="btn_edit_id">
+              <i class="fas fa-pen-to-square"></i> Ubah
+            </button>
+          </div>
+          <h4 id="sb-student-name" class="font-bold text-sm text-slate-900 dark:text-white truncate">Belum Diisi</h4>
+          <div class="mt-1.5 grid grid-cols-2 gap-1 text-[11px] text-slate-600 dark:text-zinc-400">
+            <div class="truncate"><span class="opacity-70" data-i18n="lbl_short_class">Kelas:</span> <strong id="sb-student-class" class="text-slate-800 dark:text-zinc-200">-</strong></div>
+            <div class="truncate"><span class="opacity-70" data-i18n="lbl_short_absen">Presensi:</span> <strong id="sb-student-absen" class="text-slate-800 dark:text-zinc-200">-</strong></div>
+          </div>
+          <div class="mt-1 text-[11px] text-slate-600 dark:text-zinc-400 truncate">
+            <i class="fas fa-school-flag text-gold-500 mr-1"></i>
+            <span id="sb-student-school" class="font-medium text-slate-800 dark:text-zinc-200">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress & Navigation Grid (Menu Navigasi Soal) -->
+      <div class="flex-1 overflow-y-auto p-4 space-y-4">
+        <div>
+          <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+            <span class="text-slate-600 dark:text-zinc-300 uppercase tracking-wider" data-i18n="nav_grid_title">Navigasi Soal (1 - 50)</span>
+            <span id="nav-progress-text" class="font-mono text-gold-500">0/50</span>
+          </div>
+          <div class="w-full h-2 rounded-full bg-slate-200 dark:bg-zinc-800 overflow-hidden">
+            <div id="nav-progress-bar" class="h-full bg-gradient-to-r from-gold-500 to-crimson-600 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="grid grid-cols-3 gap-1.5 text-[10px] font-medium text-slate-500 dark:text-zinc-400">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-xs bg-emerald-500 inline-block"></span>
+            <span data-i18n="legend_answered">Dijawab</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-xs bg-amber-400 inline-block"></span>
+            <span data-i18n="legend_flagged">Ragu</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-xs bg-slate-300 dark:bg-zinc-700 inline-block"></span>
+            <span data-i18n="legend_empty">Kosong</span>
+          </div>
+        </div>
+
+        <!-- 50 Question Buttons Container -->
+        <div id="question-nav-grid" class="grid grid-cols-5 gap-2">
+          <!-- Generated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Sidebar Footer: Lock Out Menu & Creator Credit -->
+      <div class="p-4 border-t border-slate-200 dark:border-zinc-800 space-y-3 bg-slate-50/80 dark:bg-zinc-950/60">
+        <button onclick="manualLockOut()" class="w-full py-2.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider bg-crimson-600/15 hover:bg-crimson-600 text-crimson-600 dark:text-crimson-400 hover:text-white border border-crimson-500/40 transition flex items-center justify-center gap-2 shadow-sm">
+          <i class="fas fa-lock"></i>
+          <span data-i18n="menu_lock_out">Menu Lock Out</span>
+        </button>
+
+        <div class="text-center pt-1">
+          <p class="text-[10px] uppercase tracking-widest text-slate-400 dark:text-zinc-500" data-i18n="creator_label">Pembuat Aplikasi</p>
+          <p class="text-xs font-extrabold bg-gradient-to-r from-gold-500 to-crimson-500 bg-clip-text text-transparent">
+            Ahmad Budi Leksono
+          </p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT WORKSPACE -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- TOP FUTURISTIC NAVBAR -->
+      <header class="sticky top-0 z-20 bg-white/85 dark:bg-zinc-950/85 backdrop-blur-xl border-b border-slate-200 dark:border-zinc-800/90 px-4 sm:px-6 py-3">
+        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          
+          <!-- Left: Sidebar Toggle & Title -->
+          <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="lg:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-200 hover:border-gold-500 transition">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div>
+              <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                <span class="hidden sm:inline-block w-2 h-2 rounded-full bg-gold-500 animate-ping"></span>
+                <span data-i18n="app_header_title">UJIAN NASIONAL BAHASA INGGRIS SMP/MTs</span>
+              </h1>
+              <p class="text-[11px] text-slate-500 dark:text-zinc-400 hidden sm:block">
+                Kode Paket Soal: <span class="text-gold-600 dark:text-gold-400 font-bold">A86</span> • Alokasi Waktu: <span class="text-crimson-600 dark:text-crimson-400 font-bold">80 Menit</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Center/Right: Realtime Timer & Controls -->
+          <div class="flex items-center gap-2 sm:gap-3">
+            
+            <!-- Realtime 80-Minute Countdown Badge -->
+            <div id="timer-widget" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-zinc-900 to-zinc-800 dark:from-zinc-900 dark:to-crimson-950/60 border border-gold-500/40 text-white shadow-md">
+              <i class="fas fa-stopwatch text-gold-400 animate-pulse"></i>
+              <div class="text-right">
+                <span class="block text-[9px] uppercase tracking-widest text-zinc-400 leading-none" data-i18n="timer_label">Sisa Waktu</span>
+                <span id="realtime-timer" class="font-mono text-sm sm:text-base font-extrabold text-gold-400 tracking-wider">01:20:00</span>
+              </div>
+            </div>
+
+            <!-- Bilingual Toggle (ID / EN) -->
+            <button onclick="toggleLanguage()" title="Switch Language (Indonesia / English)" class="px-3 py-2 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:border-gold-500 text-xs font-bold flex items-center gap-1.5 transition">
+              <i class="fas fa-language text-gold-500 text-sm"></i>
+              <span id="lang-badge" class="text-slate-800 dark:text-zinc-200">ID</span>
+            </button>
+
+            <!-- Light / Dark Mode Toggle -->
+            <button onclick="toggleTheme()" title="Ubah Pencahayaan (Terang / Gelap)" class="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 hover:border-gold-500 text-slate-700 dark:text-gold-400 transition">
+              <i id="theme-icon" class="fas fa-sun"></i>
+            </button>
+
+            <!-- Subtle Hidden Admin Trigger Button -->
+            <button onclick="openAdminModal()" title="Proktor / Admin" class="p-2.5 rounded-xl bg-slate-100/60 dark:bg-zinc-900/60 border border-transparent hover:border-crimson-500/40 text-slate-400 dark:text-zinc-600 hover:text-crimson-500 transition">
+              <i class="fas fa-user-shield text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIEW 1: STUDENT IDENTITY GATE & AUTO-SHUFFLE REGISTRATION -->
+      <main id="view-identity" class="flex-1 flex items-center justify-center p-4 sm:p-8">
+        <div class="max-w-2xl w-full bg-white/95 dark:bg-zinc-900/95 border border-gold-500/40 rounded-3xl p-6 sm:p-9 shadow-2xl relative overflow-hidden backdrop-blur-xl">
+          <!-- Top Accent Gradient -->
+          <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-crimson-600 via-gold-500 to-crimson-600"></div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200 dark:border-zinc-800">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gold-500/15 text-gold-600 dark:text-gold-400 border border-gold-500/30 mb-2">
+                <i class="fas fa-shield-cat"></i> <span data-i18n="id_badge">GERBANG IDENTITAS PESERTA</span>
+              </span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white" data-i18n="id_title">
+                Registrasi & Validasi Data Murid
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1" data-i18n="id_subtitle">
+                Lengkapi identitas Anda untuk memulai ujian. Perubahan identitas akan otomatis me-reset sesi dan mengacak urutan aktivitas soal.
+              </p>
+            </div>
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-gold-500 to-crimson-600 flex items-center justify-center text-white text-2xl shadow-lg shrink-0">
+              <i class="fas fa-user-graduate"></i>
+            </div>
+          </div>
+
+          <!-- Security Rules Alert Box -->
+          <div class="mb-6 p-4 rounded-2xl bg-crimson-500/10 border border-crimson-500/30 text-xs space-y-1.5 text-slate-700 dark:text-zinc-300">
+            <div class="font-bold text-crimson-600 dark:text-crimson-400 flex items-center gap-2 uppercase tracking-wider">
+              <i class="fas fa-triangle-exclamation"></i> <span data-i18n="sec_notice_title">Peraturan Keamanan Ketat (Anti-Cheat):</span>
+            </div>
+            <ul class="list-disc list-inside space-y-1 text-[11px] sm:text-xs opacity-90">
+              <li data-i18n="sec_rule_1">Waktu pengerjaan dibatasi <strong>80 Menit</strong> secara realtime dan berhenti otomatis saat waktu habis.</li>
+              <li data-i18n="sec_rule_2">Fitur <strong>Copy, Paste, Klik Kanan, dan Seleksi Teks</strong> dikunci penuh selama ujian.</li>
+              <li data-i18n="sec_rule_3">Membuka <strong>tab browser baru, mesin pencari lain, atau mengunci layar perangkat</strong> akan langsung mengunci aplikasi (<strong>Auto Lock-Out</strong>).</li>
+              <li data-i18n="sec_rule_4">Sertifikat kelulusan diterbitkan otomatis jika meraih skor minimal <strong>80</strong>.</li>
+            </ul>
+          </div>
+
+          <!-- Student Identity Form -->
+          <form id="student-identity-form" onsubmit="startOrResumeExam(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Nama Lengkap -->
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5">
+                  <span data-i18n="form_name">Nama Lengkap Murid</span> <span class="text-crimson-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gold-500">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <input type="text" id="input-name" required placeholder="Contoh: Muhammad Rizky Pratama"
+                    class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 outline-none text-sm font-medium transition" />
+                </div>
+              </div>
+
+              <!-- Kelas -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5">
+                  <span data-i18n="form_class">Kelas</span> <span class="text-crimson-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gold-500">
+                    <i class="fas fa-chalkboard-user"></i>
+                  </span>
+                  <input type="text" id="input-class" required placeholder="Contoh: IX - A"
+                    class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 outline-none text-sm font-medium transition" />
+                </div>
+              </div>
+
+              <!-- Nomor Presensi -->
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5">
+                  <span data-i18n="form_absen">Nomor Presensi</span> <span class="text-crimson-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-gold-500">
+                    <i class="fas fa-hashtag"></i>
+                  </span>
+                  <input type="text" id="input-absen" required placeholder="Contoh: 14"
+                    class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-gold-500 focus:ring-2 focus:ring-gold-500/20 outline-none text-sm font-medium transition" />
+                </div>
+              </div>
+
+              <!-- Asal Madrasah / Sekolah -->
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5">
+                  <span data-i18n="form_school">Asal Madrasah / Sekolah</span> <span class="text-crimson-500">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-crimson-500">
+                    <i class="fas fa-mosque"></i>
+                  </span>
+                  <input type="text" id="input-school" required placeholder="Contoh: MTs Negeri 1 Kota Malang"
+                    class="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-700 focus:border-crimson-500 focus:ring-2 focus:ring-crimson-500/20 outline-none text-sm font-medium transition" />
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-200 dark:border-zinc-800">
+              <div class="text-[11px] text-slate-500 dark:text-zinc-400">
+                Developer: <strong class="text-gold-600 dark:text-gold-400">Ahmad Budi Leksono</strong>
+              </div>
+              <button type="submit" class="w-full sm:w-auto px-7 py-3.5 rounded-xl font-extrabold text-sm bg-gradient-to-r from-crimson-600 via-red-600 to-gold-500 text-white shadow-xl shadow-crimson-600/25 hover:brightness-110 transition flex items-center justify-center gap-2">
+                <i class="fas fa-rocket"></i>
+                <span data-i18n="btn_start_exam">Mulai Ujian & Acak Soal</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+
+      <!-- VIEW 2: ACTIVE CBT EXAM WORKSPACE -->
+      <main id="view-exam" class="hidden flex-1 p-4 sm:p-6 lg:p-8 max-w-6xl w-full mx-auto flex-col gap-6">
+        
+        <!-- Top Status Bar inside Exam -->
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-zinc-900/90 border border-slate-200 dark:border-zinc-800 rounded-2xl p-4 shadow-sm">
+          <div class="flex items-center gap-3">
+            <span class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-gold-500 to-crimson-600 text-white font-extrabold text-sm shadow">
+              <span data-i18n="lbl_question_no">Soal No.</span> <span id="current-q-number">1</span> / 50
+            </span>
+            <span id="activity-group-badge" class="text-xs font-semibold px-3 py-1 rounded-lg bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700">
+              Reading Comprehension
+            </span>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <!-- Flag / Ragu-ragu Button -->
+            <button id="btn-flag-question" onclick="toggleFlagCurrent()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-400/50 bg-amber-400/10 text-amber-600 dark:text-amber-400 hover:bg-amber-400/20 transition flex items-center gap-1.5">
+              <i class="fas fa-flag"></i>
+              <span data-i18n="btn_flag">Ragu-Ragu</span>
+            </button>
+
+            <!-- Finish Exam Button -->
+            <button onclick="confirmFinishExam()" class="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow hover:opacity-95 transition flex items-center gap-1.5">
+              <i class="fas fa-paper-plane"></i>
+              <span data-i18n="btn_finish_exam">Selesai Ujian</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Question & Passage Split / Stacked Layout -->
+        <div id="exam-card-container" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          
+          <!-- Left/Top: Reading Passage Box (Jika soal memiliki teks bacaan) -->
+          <div id="passage-panel" class="lg:col-span-6 bg-white dark:bg-zinc-900/95 border border-gold-500/30 rounded-3xl p-5 sm:p-7 shadow-lg">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-zinc-800">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-gold-600 dark:text-gold-400 flex items-center gap-2">
+                <i class="fas fa-book-open"></i> <span data-i18n="lbl_reading_text">Teks Bacaan / Stimulus</span>
+              </span>
+              <span id="passage-range-badge" class="text-[11px] font-mono px-2.5 py-0.5 rounded bg-gold-500/10 text-gold-600 dark:text-gold-400">
+                Text
+              </span>
+            </div>
+            <div id="passage-content" class="text-sm sm:text-[15px] leading-relaxed text-slate-800 dark:text-zinc-200 space-y-3 font-normal">
+              <!-- Passage HTML injected here -->
+            </div>
+          </div>
+
+          <!-- Right/Full: Question Prompt & Multiple Choice Options -->
+          <div id="question-panel" class="lg:col-span-6 bg-white dark:bg-zinc-900/95 border border-slate-200 dark:border-zinc-800 rounded-3xl p-5 sm:p-7 shadow-lg">
+            <div class="mb-5">
+              <span class="text-[11px] font-bold uppercase tracking-widest text-crimson-500 block mb-1.5" data-i18n="lbl_question_prompt">Pertanyaan:</span>
+              <h3 id="question-text" class="text-base sm:text-lg font-bold text-slate-900 dark:text-white leading-snug">
+                <!-- Question text injected here -->
+              </h3>
+            </div>
+
+            <!-- Options A, B, C, D -->
+            <div id="options-container" class="space-y-3">
+              <!-- Options injected dynamically -->
+            </div>
+
+            <!-- Bottom Navigation Controls (Prev / Next) -->
+            <div class="mt-8 pt-5 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-between gap-3">
+              <button id="btn-prev-q" onclick="prevQuestion()" class="px-5 py-3 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-200 hover:bg-slate-200 dark:hover:bg-zinc-700 disabled:opacity-40 transition flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i>
+                <span data-i18n="btn_prev">Sebelumnya</span>
+              </button>
+
+              <button id="btn-next-q" onclick="nextQuestion()" class="px-6 py-3 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-gold-500 to-crimson-600 text-white shadow-lg shadow-gold-500/20 hover:brightness-110 transition flex items-center gap-2">
+                <span data-i18n="btn_next">Selanjutnya</span>
+                <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- VIEW 3: EXAM RESULTS & CONDITIONAL CERTIFICATE (MIN SCORE 80) -->
+      <main id="view-result" class="hidden flex-1 p-4 sm:p-8 max-w-5xl w-full mx-auto flex-col gap-8">
+        
+        <!-- Score Summary Card -->
+        <div class="bg-white dark:bg-zinc-900 border border-gold-500/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-gold-500 via-crimson-600 to-gold-500"></div>
+          
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left space-y-2">
+              <span id="result-status-badge" class="inline-block px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+                UJIAN SELESAI
+              </span>
+              <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white" data-i18n="res_title">
+                Hasil Evaluasi Ujian Nasional
+              </h2>
+              <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400">
+                Peserta: <strong id="res-student-name" class="text-slate-900 dark:text-white">-</strong> • 
+                <span id="res-student-school">-</span>
+              </p>
+            </div>
+
+            <!-- Big Score Circle -->
+            <div class="flex items-center gap-5">
+              <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-gold-400 via-amber-500 to-crimson-600 p-1 shadow-xl">
+                <div class="w-full h-full rounded-full bg-white dark:bg-zinc-950 flex flex-col items-center justify-center">
+                  <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400" data-i18n="res_score_lbl">Skor Akhir</span>
+                  <span id="res-final-score" class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-gold-500 to-crimson-500 bg-clip-text text-transparent">0</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mt-7 pt-6 border-t border-slate-200 dark:border-zinc-800">
+            <div class="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-center">
+              <span class="block text-xs text-slate-500 dark:text-zinc-400" data-i18n="res_correct">Jawaban Benar</span>
+              <strong id="res-correct-count" class="text-xl font-extrabold text-emerald-500">0</strong>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-crimson-500/10 border border-crimson-500/20 text-center">
+              <span class="block text-xs text-slate-500 dark:text-zinc-400" data-i18n="res_wrong">Jawaban Salah</span>
+              <strong id="res-wrong-count" class="text-xl font-extrabold text-crimson-500">0</strong>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-500/10 border border-slate-500/20 text-center">
+              <span class="block text-xs text-slate-500 dark:text-zinc-400" data-i18n="res_unanswered">Tidak Dijawab</span>
+              <strong id="res-empty-count" class="text-xl font-extrabold text-slate-600 dark:text-zinc-300">0</strong>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-gold-500/10 border border-gold-500/20 text-center">
+              <span class="block text-xs text-slate-500 dark:text-zinc-400" data-i18n="res_min_pass">Syarat Sertifikat</span>
+              <strong class="text-xl font-extrabold text-gold-500">≥ 80</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL CERTIFICATE SECTION (Score >= 80) -->
+        <div id="certificate-unlocked-section" class="hidden space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2 text-gold-500 font-bold text-sm">
+              <i class="fas fa-award text-xl"></i>
+              <span data-i18n="cert_unlocked_msg">Selamat! Anda memenuhi syarat minimal skor 80 dan berhak mendapatkan Sertifikat Resmi.</span>
+            </div>
+            <button onclick="window.print()" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-gold-500 to-crimson-600 text-white shadow-lg hover:brightness-110 transition flex items-center gap-2">
+              <i class="fas fa-print"></i>
+              <span data-i18n="btn_print_cert">Cetak / Simpan PDF Sertifikat</span>
+            </button>
+          </div>
+
+          <!-- PRINTABLE ENTERPRISE CERTIFICATE -->
+          <div id="certificate-printable" class="bg-white text-zinc-900 rounded-3xl p-6 sm:p-12 border-[10px] border-double border-amber-500 shadow-2xl relative overflow-hidden">
+            <!-- Decorative Corner Ornaments -->
+            <div class="absolute top-0 left-0 w-28 h-28 bg-gradient-to-br from-crimson-700 to-amber-500 opacity-15 rounded-br-full"></div>
+            <div class="absolute bottom-0 right-0 w-28 h-28 bg-gradient-to-tl from-crimson-700 to-amber-500 opacity-15 rounded-tl-full"></div>
+            <div class="absolute inset-3 border-2 border-crimson-700/30 rounded-2xl pointer-events-none"></div>
+
+            <div class="relative z-10 text-center space-y-4">
+              <div class="flex items-center justify-center gap-3 text-crimson-700">
+                <i class="fas fa-trophy text-3xl text-amber-500"></i>
+                <span class="text-xs font-extrabold tracking-[0.25em] uppercase text-crimson-800">Enterprise CBT Assessment System</span>
+                <i class="fas fa-trophy text-3xl text-amber-500"></i>
+              </div>
+
+              <h1 class="font-serif text-2xl sm:text-4xl font-extrabold tracking-wide text-zinc-900 uppercase" data-i18n="cert_heading">
+                Sertifikat Kelulusan & Prestasi
+              </h1>
+              <p class="text-xs font-mono text-zinc-500">NO. SERTIFIKAT: <span id="cert-serial-no" class="font-bold text-crimson-700">CBT-A86-2026-001</span></p>
+
+              <p class="text-sm text-zinc-600 pt-2" data-i18n="cert_given_to">Diberikan dengan bangga kepada:</p>
+
+              <div class="py-2">
+                <h2 id="cert-student-name" class="text-2xl sm:text-4xl font-extrabold text-crimson-700 border-b-2 border-amber-500 inline-block px-8 pb-1">
+                  NAMA PESERTA
+                </h2>
+              </div>
+
+              <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-xs sm:text-sm font-semibold text-zinc-700">
+                <span>Kelas: <strong id="cert-student-class" class="text-zinc-900">-</strong></span>
+                <span>•</span>
+                <span>No. Presensi: <strong id="cert-student-absen" class="text-zinc-900">-</strong></span>
+                <span>•</span>
+                <span>Asal Madrasah: <strong id="cert-student-school" class="text-zinc-900">-</strong></span>
+              </div>
+
+              <p class="max-w-2xl mx-auto text-xs sm:text-sm text-zinc-600 leading-relaxed pt-2" data-i18n="cert_body_text">
+                Telah berhasil menyelesaikan evaluasi Computer Based Test (CBT) mata pelajaran <strong>Bahasa Inggris SMP/MTs (Kode Paket Soal A86)</strong> secara jujur dan mandiri dengan perolehan nilai akhir:
+              </p>
+
+              <div class="py-2">
+                <div class="inline-flex items-center gap-4 px-8 py-3 rounded-2xl bg-gradient-to-r from-amber-50 to-red-50 border-2 border-amber-500">
+                  <div class="text-left">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">Nilai Akhir</span>
+                    <span id="cert-score-val" class="text-3xl font-extrabold text-crimson-700">100</span>
+                  </div>
+                  <div class="h-8 w-px bg-amber-400"></div>
+                  <div class="text-left">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">Predikat</span>
+                    <span id="cert-predicate" class="text-sm sm:text-base font-extrabold text-amber-700">SANGAT MEMUASKAN</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Signature & Verification Footer -->
+              <div class="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 items-end text-xs">
+                <div class="text-center sm:text-left text-zinc-500 space-y-1">
+                  <p>Tanggal Terbit: <strong id="cert-date" class="text-zinc-800">-</strong></p>
+                  <p>Status Keamanan: <span class="text-emerald-700 font-bold">VERIFIED CLEAN SESSION</span></p>
+                </div>
+
+                <div class="text-center sm:text-right">
+                  <p class="text-zinc-600 mb-10" data-i18n="cert_creator_role">Pengembang Sistem & Pembuat Aplikasi,</p>
+                  <p class="font-extrabold text-sm sm:text-base text-zinc-900 underline decoration-amber-500 decoration-2 underline-offset-4">
+                    Ahmad Budi Leksono
+                  </p>
+                  <p class="text-[11px] text-crimson-700 font-semibold mt-0.5">Lead Architect • CBT Enterprise</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CERTIFICATE LOCKED NOTICE (Score < 80) -->
+        <div id="certificate-locked-section" class="hidden bg-crimson-500/10 border border-crimson-500/30 rounded-3xl p-6 sm:p-8 text-center space-y-3">
+          <div class="w-14 h-14 mx-auto rounded-2xl bg-crimson-500/20 text-crimson-500 flex items-center justify-center text-2xl">
+            <i class="fas fa-medal"></i>
+          </div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-crimson-600 dark:text-crimson-400" data-i18n="cert_locked_title">
+            Sertifikat Belum Terbuka (Skor Minimal 80)
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 max-w-xl mx-auto" data-i18n="cert_locked_desc">
+            Nilai Anda belum mencapai batas kelulusan minimal 80 untuk menerbitkan sertifikat. Silakan hubungi pengawas/admin atau ubah identitas untuk mengulang sesi latihan baru.
+          </p>
+          <div class="pt-2">
+            <button onclick="showIdentityScreen()" class="px-6 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-gold-500 to-crimson-600 text-white shadow hover:opacity-95 transition">
+              <i class="fas fa-rotate-left mr-1.5"></i> <span data-i18n="btn_back_identity">Kembali ke Identitas Murid</span>
+            </button>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- ENTERPRISE FOOTER -->
+      <footer class="mt-auto border-t border-slate-200 dark:border-zinc-800/80 py-3.5 px-6 text-center text-xs text-slate-500 dark:text-zinc-400 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-md no-print">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>© 2026 Enterprise CBT System • Paket Soal UN Bahasa Inggris SMP/MTs (A86)</span>
+          <span>Pembuat Aplikasi: <strong class="text-gold-600 dark:text-gold-400">Ahmad Budi Leksono</strong></span>
+        </div>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- COMPLETE EXAM DATASET & APPLICATION ENGINE -->
+  <script>
+    /**
+     * ============================================================================
+     * 1. DATASET LENGKAP 50 SOAL UN BAHASA INGGRIS SMP/MTs (PAKET SOAL A86)
+     * Dikelompokkan berdasarkan Stimulus/Teks Bacaan agar soal yang berbagi teks
+     * tetap menyatu saat diacak (Activity Block Randomization).
+     * ============================================================================
+     */
+    const ACTIVITY_BLOCKS = [
+      {
+        blockId: "ACT-01",
+        category: "Short Functional Text (Message)",
+        passageTitle: "Text for questions 1 and 2",
+        passageHTML: `
+          <div class="p-4 rounded-2xl bg-amber-50/70 dark:bg-zinc-950 border border-gold-500/30 font-serif italic">
+            <p class="mb-2">Dear Andre,</p>
+            <p class="mb-2">Do you have any plan for next holiday? Mira and I are going to spend our holiday at grandma's house and our father will drive us to the village. If you want to join us, let us know soon. Remember, last holiday you didn't visit grandma!</p>
+            <p class="font-bold not-italic">Randy</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 1,
+            prompt: "Why did Randy invite Andre to join them? Because ....",
+            options: [
+              { key: "A", text: "Randy and Andre are best friend." },
+              { key: "B", text: "Andre doesn't have any plans for holiday." },
+              { key: "C", text: "Andre didn't visit grandma last holiday." },
+              { key: "D", text: "Randy's father will drive them to the village." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 2,
+            prompt: "From the message we know that ....",
+            options: [
+              { key: "A", text: "Andre doesn't want to spend his holiday at the village." },
+              { key: "B", text: "father will spend his holiday at village too" },
+              { key: "C", text: "Randy will visit his grandmother alone" },
+              { key: "D", text: "Andre is Mira and Randy's cousin." }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-02",
+        category: "Greeting Card",
+        passageTitle: "Text for questions 3 and 4",
+        passageHTML: `
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-amber-50 to-red-50 dark:from-zinc-950 dark:to-zinc-900 border-2 border-gold-500/40 text-center space-y-2">
+            <p class="text-left font-semibold">Dear Rudi,</p>
+            <p>On behalf of all the staffs we sincerely congratulate you on your success as the <strong>Jakarta City's Best Journalist 2012</strong>.</p>
+            <p>We hope this will <u>support</u> you to write more articles.</p>
+            <div class="pt-2 text-right">
+              <p class="text-xs text-slate-500 dark:text-zinc-400">Manager of Reader Publisher.</p>
+              <p class="font-bold">Rendi</p>
+            </div>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 3,
+            prompt: "What does Rendi do? He is a ... of Reader Publisher.",
+            options: [
+              { key: "A", text: "staff" },
+              { key: "B", text: "journalist" },
+              { key: "C", text: "publisher" },
+              { key: "D", text: "manager" }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 4,
+            prompt: '"...this will <u>support</u> you to write more articles." The underlined word is closest in meaning with ....',
+            options: [
+              { key: "A", text: "make" },
+              { key: "B", text: "disturb" },
+              { key: "C", text: "suggest" },
+              { key: "D", text: "motivate" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-03",
+        category: "Invitation Card",
+        passageTitle: "Text for questions 5 and 6",
+        passageHTML: `
+          <div class="p-5 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-crimson-500/40 text-center space-y-2">
+            <p class="font-bold text-crimson-600 dark:text-crimson-400">Santa Will Be Coming Down A New Chimney This Year</p>
+            <p class="text-xs font-bold tracking-wider uppercase">THE ADDRESS IS DIFFERENT • THE HOUSE IS NEW<br/>BUT THE DOOR IS ALWAYS OPEN FOR FRIENDS LIKE YOU!</p>
+            <p class="font-extrabold text-gold-600 dark:text-gold-400 pt-1">JOIN US SATURDAY, DECEMBER 5 AT 7:00 PM FOR COCKTAILS</p>
+            <p class="text-xs font-semibold">CECILY AND BRANDON THOMSON • REGRET: 919 345 2654</p>
+            <div class="pt-2 border-t border-slate-200 dark:border-zinc-800 text-xs">
+              <strong>THE THOMSON FAMILY (Est. 1995)</strong><br/>
+              New Address: 1534 GRIHON PLACE, HIGHPOINT, NC 29865
+            </div>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 5,
+            prompt: "What does the Thompson family do?",
+            options: [
+              { key: "A", text: "Introduce Santa to their friends." },
+              { key: "B", text: "Open the door for their friends." },
+              { key: "C", text: "Inform their new house to their friends." },
+              { key: "D", text: "Invite their friends to a cocktail party." }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 6,
+            prompt: "From the text we can say that ....",
+            options: [
+              { key: "A", text: "Cecily and Brandon have different addresses" },
+              { key: "B", text: "Santa is going to move to a new house this year" },
+              { key: "C", text: "Santa always opens the door for Thompson family" },
+              { key: "D", text: "the Thompson family will move to a new house" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-04",
+        category: "Caution / Notice",
+        passageTitle: "Text for question 7",
+        passageHTML: `
+          <div class="p-6 rounded-2xl bg-amber-400/20 border-2 border-amber-500 text-center">
+            <i class="fas fa-triangle-exclamation text-2xl text-crimson-600 mb-2"></i>
+            <p class="font-extrabold tracking-wide text-slate-900 dark:text-white uppercase">
+              DUE TO MANY SHARP CORALS,<br/>THE VISITORS ARE PROHIBITED TO SWIM ALONG THIS AREA
+            </p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 7,
+            prompt: "Where do we usually find the text?",
+            options: [
+              { key: "A", text: "At the lake." },
+              { key: "B", text: "At the beach." },
+              { key: "C", text: "At the river bank." },
+              { key: "D", text: "At the swimming pool." }
+            ],
+            correctKey: "B"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-05",
+        category: "Announcement",
+        passageTitle: "Text for questions 8 to 10",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>The Washington Park Zoo Monkey Island is closed indefinitely due to deterioration of exhibition. After 80 years of operation, the exhibition is considered no longer safe to exhibit monkeys or to be serviced by employees.</p>
+            <p>Monkey Island will be closed until further notice and will eventually be restored after major renovation take place. The zoo has plans to design a new modern monkey island exhibit and will <u>unveil</u> those once they have been set.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 8,
+            prompt: "Why did the government close the Monkey Island? Because ....",
+            options: [
+              { key: "A", text: "it will hold an exhibition" },
+              { key: "B", text: "it is no longer safe for visitors" },
+              { key: "C", text: "it does not get fund for its renovation" },
+              { key: "D", text: "the zoo employees served the visitors badly" }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 9,
+            prompt: '"...and will <u>unveil</u> those once they have been set" (paragraph 2). The underlined word means ....',
+            options: [
+              { key: "A", text: "introduce" },
+              { key: "B", text: "inform" },
+              { key: "C", text: "cover" },
+              { key: "D", text: "open" }
+            ],
+            correctKey: "A"
+          },
+          {
+            origNum: 10,
+            prompt: "The announcement tells us about ....",
+            options: [
+              { key: "A", text: "the exhibition of the monkey" },
+              { key: "B", text: "the renovation of Monkey Island" },
+              { key: "C", text: "the new modern design of the zoo" },
+              { key: "D", text: "the closure of monkey island" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-06",
+        category: "Advertisement",
+        passageTitle: "Text for questions 11 and 12",
+        passageHTML: `
+          <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-gold-500/10 border border-gold-500/40 space-y-2">
+            <h4 class="text-lg font-extrabold text-center text-gold-600 dark:text-gold-400 tracking-wider">WHITE TEA</h4>
+            <ul class="list-disc list-inside space-y-1 text-sm font-medium">
+              <li>Lose up to 25 pounds in 25 days.</li>
+              <li>3x more Antioxidant than Green Tea</li>
+              <li>Fight fatigue & Increase Energy Level</li>
+              <li>Reduce Every Fine Lines & Wrinkles</li>
+              <li>Enhance Immune System</li>
+            </ul>
+            <div class="pt-2 text-center">
+              <span class="px-3 py-1 rounded-full bg-crimson-600 text-white text-xs font-bold">FREE SHIPPING FEE FOR THIS MONTH</span>
+            </div>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 11,
+            prompt: "What's the benefit of drinking White Tea?",
+            options: [
+              { key: "A", text: "Reduce antioxidants" },
+              { key: "B", text: "Decrease energy levels" },
+              { key: "C", text: "Enhance immune system" },
+              { key: "D", text: "Gain up to 3 pounds in a day" }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 12,
+            prompt: "The purpose of the text above is ....",
+            options: [
+              { key: "A", text: "to inform how to use the product" },
+              { key: "B", text: "to advertise the product" },
+              { key: "C", text: "to describe the benefits of the product" },
+              { key: "D", text: "to tell ingredients of the product" }
+            ],
+            correctKey: "B"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-07",
+        category: "Personal Letter",
+        passageTitle: "Text for questions 13 to 15",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Let me introduce myself. My name is Adiba Salma Zakiya, just call me Salma. I'm from Bima, Nusa Tenggara Barat. I read your profile in NONA magazine and would like to be one of your friends. It's a bit hard to find internet connection here, so I decided to write a letter instead of an e-mail to you. I hope you don't mind.</p>
+            <p>I'm the first child in my family. My parents have four children. I go to SMP 3 Sape, Bima. Now, I'm in the ninth grade. My hobby is cooking, that's why I can cook many kinds of Bimanese traditional dishes. Besides, I also like to play Kareku Kandei. It's a traditional music performance from Bima. Girls pound their pestles to a mortar to create harmonious sound. Kareku Kandei is usually performed on special events such as Independence Day, Kartini Day, etc.</p>
+            <p>I would love to know you better, would you tell me more about yourself too.</p>
+            <p class="font-semibold">Regards,<br/>Salma</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 13,
+            prompt: "How did Salma know about Ima's profile?",
+            options: [
+              { key: "A", text: "By writing a letter to Ima." },
+              { key: "B", text: "By sending an e-mail to Ima." },
+              { key: "C", text: "By reading her profile in a magazine." },
+              { key: "D", text: "By being one of her friends." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 14,
+            prompt: "What is the main idea of paragraph one?",
+            options: [
+              { key: "A", text: "Salma described her hometown." },
+              { key: "B", text: "Both Salma and Ima liked NONA magazine." },
+              { key: "C", text: "Salma found Ima's profile in NONA magazine." },
+              { key: "D", text: "Salma complained about the internet connection." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 15,
+            prompt: "The text mainly tells us about ....",
+            options: [
+              { key: "A", text: "the description of Salma's hometown" },
+              { key: "B", text: "Salma's introduction to Ima" },
+              { key: "C", text: "Salma's family and her hobbies" },
+              { key: "D", text: "the condition of a remote area in Bima" }
+            ],
+            correctKey: "B"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-08",
+        category: "Procedure Text",
+        passageTitle: "Text for questions 16 to 18",
+        passageHTML: `
+          <div class="space-y-3">
+            <h4 class="font-bold text-gold-600 dark:text-gold-400">How to Repel Mice</h4>
+            <p>Mice might look cute, but they can be harmful pests that destroy household items, eat and mess with food and can spread severe diseases through their feces and parasites they carry. Here are some useful tips on how to repel house mice:</p>
+            <ol class="list-decimal list-inside space-y-1.5">
+              <li>Use peppermint, put the peppermint near wall corners.</li>
+              <li>Pour generous amount of peppermint oil on cotton balls.</li>
+              <li>Place the saturated cotton balls on areas where mice are possibly seen—around counter tops, under the sofas in your living room.</li>
+              <li>Put <u>them</u> behind shelves, wall corners or on the floor beneath your kitchen sink.</li>
+            </ol>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 16,
+            prompt: "Why do we use peppermint to repel mice? Because ....",
+            options: [
+              { key: "A", text: "peppermint is fresh to breathe" },
+              { key: "B", text: "mice love the peppermint" },
+              { key: "C", text: "mice will die of breathing mint" },
+              { key: "D", text: "mice hate the smell of peppermint" }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 17,
+            prompt: "From the text above, we can conclude that ....",
+            options: [
+              { key: "A", text: "mice spread severe diseases through feces" },
+              { key: "B", text: "peppermint is useful to repel mice" },
+              { key: "C", text: "mice love peppermint" },
+              { key: "D", text: "we can place oil everywhere to repel mice" }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 18,
+            prompt: '"Put <u>them</u> behind shelves..." The word "them" refers to ....',
+            options: [
+              { key: "A", text: "pets" },
+              { key: "B", text: "peppermint" },
+              { key: "C", text: "cotton balls" },
+              { key: "D", text: "peppermint oil" }
+            ],
+            correctKey: "C"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-09",
+        category: "Descriptive Text",
+        passageTitle: "Text for questions 19 to 21",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Last month, I went to my uncle's house. He lives in Jakarta. His house is big and beautiful. It has five rooms. The living room is very large. It has a sofa from Europe, a piece of rug made in the Middle East, and many other expensive things in it.</p>
+            <p>His kitchen is very luxurious and <u>modern</u>. He has expensive kitchen set imported from Italy. We can cook in a few minutes to prepare certain meals. I tried to bake some cookies in the oven and they baked so well. Compared to my small and modest house, I could not say a word.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 19,
+            prompt: "Where is the rug in the living room made?",
+            options: [
+              { key: "A", text: "Jakarta" },
+              { key: "B", text: "Italy" },
+              { key: "C", text: "Europe" },
+              { key: "D", text: "the Middle East" }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 20,
+            prompt: "Why can the writer cook very fast in her uncle's kitchen? Because ....",
+            options: [
+              { key: "A", text: "the kitchen is very luxurious" },
+              { key: "B", text: "the kitchen set is made in Italy" },
+              { key: "C", text: "the kitchen equipments are luxurious and modern" },
+              { key: "D", text: "all of the things in the kitchen are expensive" }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 21,
+            prompt: '"... very luxurious and <u>modern</u>" (paragraph 2). The underlined word has similar meaning to ....',
+            options: [
+              { key: "A", text: "bad fashion" },
+              { key: "B", text: "new born" },
+              { key: "C", text: "past time" },
+              { key: "D", text: "up to date" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-10",
+        category: "Descriptive / Report Text",
+        passageTitle: "Text for questions 22 to 24",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Boyolali regency is located in north of Solo and east of Merapi and Merbabu Mountains. This regency has been known for its production of fresh milk for a long time. No wonder, the cow statues adorn Boyolali town.</p>
+            <p>There are six main cow statues in Boyolali. They are displayed in different places. The statues are made of concrete. The colour and shape are made in such a way to resemble the real cows. However, the size is made bigger to catch the eye.</p>
+            <p>Besides decorating the town, the statues also turn out to be helpful for people from out of town to find <u>places</u> they are seeking in Boyolali. By mentioning the position of the statue, people can get their way easily.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 22,
+            prompt: '"Besides decorating the town, the statues also turn out to be helpful for people from out of town to find <u>places</u> they are seeking in Boyolali" (paragraph 3). What does the underlined word refer to?',
+            options: [
+              { key: "A", text: "People from out of town." },
+              { key: "B", text: "Places in Boyolali." },
+              { key: "C", text: "Cow statues." },
+              { key: "D", text: "Real cows." }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 23,
+            prompt: "What is the main idea of the last paragraph?",
+            options: [
+              { key: "A", text: "The statues help people to find places easily." },
+              { key: "B", text: "The statues decorate the town beautifully." },
+              { key: "C", text: "The cow can get their way easily around the town." },
+              { key: "D", text: "The people from out of town easily find the statues." }
+            ],
+            correctKey: "A"
+          },
+          {
+            origNum: 24,
+            prompt: "The text mainly tells us about ....",
+            options: [
+              { key: "A", text: "the colour of the statues" },
+              { key: "B", text: "cow statues in Boyolali" },
+              { key: "C", text: "a town called Boyolali" },
+              { key: "D", text: "how to raise cows" }
+            ],
+            correctKey: "B"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-11",
+        category: "Recount Text",
+        passageTitle: "Text for questions 25 to 27",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>I am used to travelling by air but only on one occasion I felt frightened. After taking off, we flew low over the city. It slowly went high to the sky.</p>
+            <p>But suddenly it turned round and flew back to the airport. An air-hostess told us to keep calm and to get off the plane quietly as soon as it landed. After we landed, the police searched the plane carefully. Everybody on board was worried and we grew curious about what was happening.</p>
+            <p>Later we learnt that there was a very important person on board. Earlier somebody told the police that there was a bomb on the plane. Fortunately, they didn't find a bomb and five hours later we were able to take off again.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 25,
+            prompt: "Who searched the plane carefully?",
+            options: [
+              { key: "A", text: "The pilot." },
+              { key: "B", text: "The police." },
+              { key: "C", text: "The air-hostesses." },
+              { key: "D", text: "The passengers." }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 26,
+            prompt: "Why did the plane fly back to the airport?",
+            options: [
+              { key: "A", text: "The pilot was afraid of bombs." },
+              { key: "B", text: "The pilot forgot about something." },
+              { key: "C", text: "The passengers were frightened." },
+              { key: "D", text: "Police suspected that there was a bomb on the plane." }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 27,
+            prompt: "What is the main idea of paragraph three?",
+            options: [
+              { key: "A", text: "The writer felt frightened." },
+              { key: "B", text: "The police searched the plane carefully." },
+              { key: "C", text: "Somebody said that there was a bomb on the plane." },
+              { key: "D", text: "There was a very important person on board." }
+            ],
+            correctKey: "C"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-12",
+        category: "Recount Text",
+        passageTitle: "Text for questions 28 to 30",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Last summer, when mum and dad weren't feeling well, Tom was taking his dog, Paddy, for a walk. Suddenly there was a rabbit running across the path they were taking. Paddy barked very loud and the scared rabbit ran into the bushes. Although Tom was trying hard to grip the collar, Paddy was running after the rabbit. That was the last time <u>he</u> saw Paddy.</p>
+            <p>He tried to look for him for days. Finally, five weeks later, when Tom was out for a coffee at Motorway Cafe, his parents called. They were having lunch when they heard a dog barked outside the house. They hurriedly went out and there was Paddy wagging his tail.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 28,
+            prompt: '"That was the last time <u>he</u> saw Paddy." The word "he" refers to ....',
+            options: [
+              { key: "A", text: "Father" },
+              { key: "B", text: "Tom" },
+              { key: "C", text: "Rabbit" },
+              { key: "D", text: "Paddy" }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 29,
+            prompt: "How did Paddy get lost?",
+            options: [
+              { key: "A", text: "He was hungry and searched for a food" },
+              { key: "B", text: "He followed motorbike riders away" },
+              { key: "C", text: "He saw a rabbit and ran after it" },
+              { key: "D", text: "He felt bored and took a walk" }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 30,
+            prompt: "The text generally talks about ....",
+            options: [
+              { key: "A", text: "the coming back of the lost dog" },
+              { key: "B", text: "a long journey of the dog" },
+              { key: "C", text: "a holiday experience in Scotland" },
+              { key: "D", text: "the disappearance of a dog" }
+            ],
+            correctKey: "A"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-13",
+        category: "Narrative Text (Fable)",
+        passageTitle: "Text for questions 31 to 34",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Once a farmer owned a donkey and a lapdog. The donkey worked hard all day, hauling heavy loads. The lapdog stayed with his master all day, and lived in the house with him. He did not work, but was allowed to sit on the master's lap. The donkey grew jealous of the lapdog.</p>
+            <p>"Perhaps if I behave like the dog, like wag my tail and jump on the master, the master will start loving me as much as he does the dog." So the donkey decided to wait for his chance.</p>
+            <p>One day, when he was left unattended, the donkey broke his halter and ran into the farmhouse kitchen. There the farmer sat at table. The donkey rushed up to him and began wagging his tail vigorously, and knocked off all the china from the table. He then started jumping around and frolicking like a little dog, and finally plonked himself down on the farmer's lap. The shocked farmer yelled for help. The farmhands came running in and dragged the donkey off to his stable, and gave him a beating he did not forget for the rest of his life.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 31,
+            prompt: "What made the donkey jealous of the dog?",
+            options: [
+              { key: "A", text: "The halter that he has to wear." },
+              { key: "B", text: "The beating that he has." },
+              { key: "C", text: "The farmer's care to the dog." },
+              { key: "D", text: "The chance to stay inside the house." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 32,
+            prompt: "What is the main idea of paragraph 3?",
+            options: [
+              { key: "A", text: "The donkey wanted to be loved by its master." },
+              { key: "B", text: "The way the farmer treated the donkey." },
+              { key: "C", text: "The things done by the donkey to be loved." },
+              { key: "D", text: "The dog's habit is liked by the master." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 33,
+            prompt: "The best title for the text is ....",
+            options: [
+              { key: "A", text: "The farmer and his dog." },
+              { key: "B", text: "The donkey and the lapdog." },
+              { key: "C", text: "The farmer and the donkey." },
+              { key: "D", text: "The dog and its master." }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 34,
+            prompt: "What can we learn from the text?",
+            options: [
+              { key: "A", text: "It is good to share things with others." },
+              { key: "B", text: "It is not good to help others." },
+              { key: "C", text: "It is not good to be envious to others." },
+              { key: "D", text: "It is good to keep your promise." }
+            ],
+            correctKey: "C"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-14",
+        category: "Narrative Text (Folktale)",
+        passageTitle: "Text for questions 35 to 38",
+        passageHTML: `
+          <div class="space-y-3">
+            <h4 class="font-bold text-center text-gold-600 dark:text-gold-400">Juhha's Wonders</h4>
+            <p>Once upon a time, there was a small village in Baghdad. Its population was very small. In this village everybody knew each other and knew every little or big problems that went on in the village. In this small village there was a bakery that was popular for its <u>delicious</u> bread.</p>
+            <p>One day a poor old man was walking in the street passing the bakery and he stopped to smell the scent of the bread which was spreading out of the bakery. Suddenly, the baker caught the old man and shouted at him demanding the price of bread's scent. He almost dragged him to the police.</p>
+            <p>A very famous wise man named Juhha heard the baker shouting. So he went to him and asked about the problem. Juhha stood calmly listening to the baker and he thought for a solution.</p>
+            <p>After a few minutes Juhha's eyes glistened and an amused smile was on his face. He asked the baker "How much money do you want?". The baker and poor man were astonished, but the baker answered "3 dinars". Juhha took the money out of his wallet and put it in his pocket and shook the money. "Did you hear the sound of the money?" Juhha asked. "Yes, I did", the baker replied, and with big smile Juhha said "Well then, this is the price of your bread's scent!"</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 35,
+            prompt: "Who stopped to smell the scent of the bread?",
+            options: [
+              { key: "A", text: "The baker." },
+              { key: "B", text: "The police." },
+              { key: "C", text: "The old poor man." },
+              { key: "D", text: "Juhha, the wise man." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 36,
+            prompt: "What did the baker do to the old man?",
+            options: [
+              { key: "A", text: "He wanted to hear the sound of the old man's money." },
+              { key: "B", text: "He demanded the old man to pay for the scent." },
+              { key: "C", text: "He shouted his problem to the old man." },
+              { key: "D", text: "He gave the old man some solution." }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 37,
+            prompt: '"...which was popular for its <u>delicious</u> bread" (paragraph 1). What does the word "delicious" mean?',
+            options: [
+              { key: "A", text: "Sour" },
+              { key: "B", text: "Tasty" },
+              { key: "C", text: "Bitter" },
+              { key: "D", text: "Unpleasant" }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 38,
+            prompt: "What can we learn from the story above?",
+            options: [
+              { key: "A", text: "We must help poor people." },
+              { key: "B", text: "We must take the benefit of what we offer." },
+              { key: "C", text: "We should pay nothing for things we use." },
+              { key: "D", text: "We shouldn't ask others to pay for what they don't get." }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-15",
+        category: "Report Text",
+        passageTitle: "Text for questions 39 to 42",
+        passageHTML: `
+          <div class="space-y-3">
+            <p>Jellyfish are not really fish. They are invertebrate animals. This means that unlike fish or people, they have no backbones. In fact, they have no bones at all.</p>
+            <p>Jellyfish have stomachs and mouths, but no heads. They have nervous systems for sensing the world around them, but no brains. They are made almost entirely of water, which is why you can look through them.</p>
+            <p>Some jellyfish can <u>glow</u> in darkness by making their own light. The light is made by a chemical reaction inside the jellyfish. Scientists believe jellyfish glow for several reasons. For example, they may glow to scare away predators or to attract animals they like to eat.</p>
+            <p>Most jellyfish live in salt water, apart from a few types that live in fresh water. Jellyfish are found in oceans and seas all over the world. They live in warm, tropical seas and in icy waters near the North and South poles.</p>
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 39,
+            prompt: "Which one creates Jellyfish's light?",
+            options: [
+              { key: "A", text: "White blood." },
+              { key: "B", text: "Nervous system." },
+              { key: "C", text: "Chemical reaction." },
+              { key: "D", text: "Salt water." }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 40,
+            prompt: "Based on the text, we know that ....",
+            options: [
+              { key: "A", text: "they belong to invertebrate animals" },
+              { key: "B", text: "they have heads like other animals" },
+              { key: "C", text: "their brain helps them find the food" },
+              { key: "D", text: "they cannot live in fresh water" }
+            ],
+            correctKey: "A"
+          },
+          {
+            origNum: 41,
+            prompt: "What is the text about?",
+            options: [
+              { key: "A", text: "Jellyfish." },
+              { key: "B", text: "Kinds of all fish." },
+              { key: "C", text: "All invertebrate animals." },
+              { key: "D", text: "Some kinds of sea animals." }
+            ],
+            correctKey: "A"
+          },
+          {
+            origNum: 42,
+            prompt: '"Some jellyfish can <u>glow</u> in darkness by making their own light." (paragraph 3). The word "glow" in the sentence means ....',
+            options: [
+              { key: "A", text: "move" },
+              { key: "B", text: "produce" },
+              { key: "C", text: "appear" },
+              { key: "D", text: "shine" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-16",
+        category: "Cloze Test (Recount)",
+        passageTitle: "For questions 43 to 45 choose the correct words to complete the text",
+        passageHTML: `
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 leading-loose">
+            My wife and I were in Caribbean cruise <strong>... [Blank A] ...</strong> vacation. It was a wonderful time exploring the unknown. We went beneath the sea and <strong>... [Blank B] ...</strong> the fish up close. They were so various in sea of world <strong>... [Blank C] ...</strong> and color.
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 43,
+            prompt: "Choose the correct word to complete [Blank A] (item 1 of this cloze text):",
+            options: [
+              { key: "A", text: "for" },
+              { key: "B", text: "from" },
+              { key: "C", text: "since" },
+              { key: "D", text: "during" }
+            ],
+            correctKey: "A"
+          },
+          {
+            origNum: 44,
+            prompt: "Choose the correct word to complete [Blank B] (item 2 of this cloze text):",
+            options: [
+              { key: "A", text: "see" },
+              { key: "B", text: "saw" },
+              { key: "C", text: "seen" },
+              { key: "D", text: "seeing" }
+            ],
+            correctKey: "B"
+          },
+          {
+            origNum: 45,
+            prompt: "Choose the correct word to complete [Blank C] (item 3 of this cloze text):",
+            options: [
+              { key: "A", text: "size" },
+              { key: "B", text: "scent" },
+              { key: "C", text: "sound" },
+              { key: "D", text: "taste" }
+            ],
+            correctKey: "A"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-17",
+        category: "Cloze Test (Report)",
+        passageTitle: "For questions 46 to 48 choose the correct words to complete the text",
+        passageHTML: `
+          <div class="p-4 rounded-2xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 leading-loose">
+            Most crabs have a <strong>... [Blank A] ...</strong> shell to protect their bodies. The hermit crab has a soft body and no shell of its own. In order to <strong>... [Blank B] ...</strong> itself, it will find an empty mollusc shell and squeeze inside <strong>... [Blank C] ...</strong> Then with only its legs and head sticking out, it will walk around the sea-bed searching for food.
+          </div>
+        `,
+        questions: [
+          {
+            origNum: 46,
+            prompt: "Choose the correct word to complete [Blank A] (item 1 of this cloze text):",
+            options: [
+              { key: "A", text: "shiny" },
+              { key: "B", text: "soft" },
+              { key: "C", text: "thick" },
+              { key: "D", text: "hard" }
+            ],
+            correctKey: "D"
+          },
+          {
+            origNum: 47,
+            prompt: "Choose the correct word to complete [Blank B] (item 2 of this cloze text):",
+            options: [
+              { key: "A", text: "close" },
+              { key: "B", text: "hide" },
+              { key: "C", text: "protect" },
+              { key: "D", text: "put" }
+            ],
+            correctKey: "C"
+          },
+          {
+            origNum: 48,
+            prompt: "Choose the correct word to complete [Blank C] (item 3 of this cloze text):",
+            options: [
+              { key: "A", text: "completely" },
+              { key: "B", text: "insufficiently" },
+              { key: "C", text: "partly" },
+              { key: "D", text: "slightly" }
+            ],
+            correctKey: "A"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-18",
+        category: "Jumbled Words",
+        passageTitle: null,
+        passageHTML: null,
+        questions: [
+          {
+            origNum: 49,
+            prompt: `Arrange the following words into a good sentence:<br/>
+            <div class="mt-3 p-3.5 rounded-xl bg-amber-500/10 border border-gold-500/30 font-mono text-sm">
+              <u>Poor</u> - <u>ashamed</u> - <u>his</u> - <u>was</u> - <u>of</u> - <u>because</u> - <u>Malin Kundang</u> - <u>mother</u><br/>
+              <span class="text-gold-600 dark:text-gold-400 font-bold">&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8</span>
+            </div>`,
+            options: [
+              { key: "A", text: "7 - 4 - 6 - 3 - 1 - 8 - 5 - 2" },
+              { key: "B", text: "7 - 4 - 1 - 6 - 3 - 8 - 5 - 2" },
+              { key: "C", text: "7 - 4 - 2 - 6 - 5 - 3 - 1 - 8" },
+              { key: "D", text: "7 - 4 - 2 - 6 - 3 - 1 - 8 - 5" }
+            ],
+            correctKey: "D"
+          }
+        ]
+      },
+      {
+        blockId: "ACT-19",
+        category: "Jumbled Sentences",
+        passageTitle: null,
+        passageHTML: null,
+        questions: [
+          {
+            origNum: 50,
+            prompt: `Arrange the following sentences into a meaningful paragraph:<br/>
+            <ol class="mt-3 p-4 rounded-xl bg-amber-500/10 border border-gold-500/30 text-sm font-normal space-y-1">
+              <li>1. My older brother went to Serpong circuit.</li>
+              <li>2. He was very disappointed.</li>
+              <li>3. He lost the race and his car was broken.</li>
+              <li>4. He arrived at six and checked up his engine.</li>
+              <li>5. The race started at four.</li>
+              <li>6. At first he led the race, but it was not long.</li>
+              <li>7. Suddenly another car hit his car from the right side.</li>
+            </ol>`,
+            options: [
+              { key: "A", text: "1 - 4 - 5 - 6 - 7 - 3 - 2" },
+              { key: "B", text: "1 - 5 - 6 - 4 - 2 - 3 - 7" },
+              { key: "C", text: "1 - 6 - 4 - 5 - 2 - 3 - 7" },
+              { key: "D", text: "1 - 2 - 5 - 4 - 3 - 6 - 7" }
+            ],
+            correctKey: "A"
+          }
+        ]
+      }
+    ];
+
+    /**
+     * ============================================================================
+     * 2. BILINGUAL DICTIONARY (BAHASA INDONESIA & ENGLISH)
+     * ============================================================================
+     */
+    const I18N = {
+      id: {
+        lockout_badge: "SISTEM KEAMANAN TERPICU • LOCK OUT",
+        lockout_title: "APLIKASI TERKUNCI OTOMATIS",
+        lbl_student_name: "Nama Murid:",
+        lbl_student_class: "Kelas / Presensi:",
+        lbl_violation_time: "Waktu Penguncian:",
+        btn_admin_unlock: "Buka Kunci Sesi (Otorisasi Admin)",
+        admin_modal_title: "Panel Otorisasi Administrator",
+        admin_modal_sub: "Akses Terbatas Pengawas & Proktor Ujian",
+        admin_user_lbl: "Username Admin",
+        admin_pass_lbl: "Password Tersembunyi",
+        admin_login_btn: "Masuk & Buka Kontrol Admin",
+        admin_verified_msg: "Otorisasi Admin Berhasil! Pilih tindakan kontrol di bawah ini:",
+        admin_act_unlock: "Buka Lock Out",
+        admin_act_unlock_desc: "Membuka kunci layar dan melanjutkan sesi ujian murid.",
+        admin_act_reset: "Reset Total Ujian",
+        admin_act_reset_desc: "Hapus semua jawaban, acak ulang soal, dan kembali ke awal.",
+        sidebar_student_card: "Identitas Peserta",
+        btn_edit_id: "Ubah",
+        lbl_short_class: "Kelas:",
+        lbl_short_absen: "Presensi:",
+        nav_grid_title: "Navigasi Soal (1 - 50)",
+        legend_answered: "Dijawab",
+        legend_flagged: "Ragu",
+        legend_empty: "Kosong",
+        menu_lock_out: "Menu Lock Out",
+        creator_label: "Pembuat Aplikasi",
+        app_header_title: "UJIAN NASIONAL BAHASA INGGRIS SMP/MTs",
+        timer_label: "Sisa Waktu",
+        id_badge: "GERBANG IDENTITAS PESERTA",
+        id_title: "Registrasi & Validasi Data Murid",
+        id_subtitle: "Lengkapi identitas Anda untuk memulai ujian. Perubahan identitas akan otomatis me-reset sesi dan mengacak urutan aktivitas soal.",
+        sec_notice_title: "Peraturan Keamanan Ketat (Anti-Cheat):",
+        sec_rule_1: "Waktu pengerjaan dibatasi 80 Menit secara realtime dan berhenti otomatis saat waktu habis.",
+        sec_rule_2: "Fitur Copy, Paste, Klik Kanan, dan Seleksi Teks dikunci penuh selama ujian.",
+        sec_rule_3: "Membuka tab browser baru, mesin pencari lain, atau mengunci layar perangkat akan langsung mengunci aplikasi (Auto Lock-Out).",
+        sec_rule_4: "Sertifikat kelulusan diterbitkan otomatis jika meraih skor minimal 80.",
+        form_name: "Nama Lengkap Murid",
+        form_class: "Kelas",
+        form_absen: "Nomor Presensi",
+        form_school: "Asal Madrasah / Sekolah",
+        btn_start_exam: "Mulai Ujian & Acak Soal",
+        lbl_question_no: "Soal No.",
+        btn_flag: "Ragu-Ragu",
+        btn_finish_exam: "Selesai Ujian",
+        lbl_reading_text: "Teks Bacaan / Stimulus",
+        lbl_question_prompt: "Pertanyaan:",
+        btn_prev: "Sebelumnya",
+        btn_next: "Selanjutnya",
+        res_title: "Hasil Evaluasi Ujian Nasional",
+        res_score_lbl: "Skor Akhir",
+        res_correct: "Jawaban Benar",
+        res_wrong: "Jawaban Salah",
+        res_unanswered: "Tidak Dijawab",
+        res_min_pass: "Syarat Sertifikat",
+        cert_unlocked_msg: "Selamat! Anda memenuhi syarat minimal skor 80 dan berhak mendapatkan Sertifikat Resmi.",
+        btn_print_cert: "Cetak / Simpan PDF Sertifikat",
+        cert_heading: "Sertifikat Kelulusan & Prestasi",
+        cert_given_to: "Diberikan dengan bangga kepada:",
+        cert_body_text: "Telah berhasil menyelesaikan evaluasi Computer Based Test (CBT) mata pelajaran Bahasa Inggris SMP/MTs (Kode Paket Soal A86) secara jujur dan mandiri dengan perolehan nilai akhir:",
+        cert_creator_role: "Pengembang Sistem & Pembuat Aplikasi,",
+        cert_locked_title: "Sertifikat Belum Terbuka (Skor Minimal 80)",
+        cert_locked_desc: "Nilai Anda belum mencapai batas kelulusan minimal 80 untuk menerbitkan sertifikat. Silakan hubungi pengawas/admin atau ubah identitas untuk mengulang sesi latihan baru.",
+        btn_back_identity: "Kembali ke Identitas Murid"
+      },
+      en: {
+        lockout_badge: "SECURITY SYSTEM TRIGGERED • LOCK OUT",
+        lockout_title: "APPLICATION AUTOMATICALLY LOCKED",
+        lbl_student_name: "Student Name:",
+        lbl_student_class: "Class / Attendance:",
+        lbl_violation_time: "Lock-Out Timestamp:",
+        btn_admin_unlock: "Unlock Session (Admin Authorization)",
+        admin_modal_title: "Administrator Authorization Panel",
+        admin_modal_sub: "Restricted Access for Exam Proctors",
+        admin_user_lbl: "Admin Username",
+        admin_pass_lbl: "Hidden Password",
+        admin_login_btn: "Sign In & Open Admin Controls",
+        admin_verified_msg: "Admin Authorized! Select a control action below:",
+        admin_act_unlock: "Release Lock Out",
+        admin_act_unlock_desc: "Unlock screen and allow the student to resume the exam.",
+        admin_act_reset: "Full Exam Reset",
+        admin_act_reset_desc: "Clear all answers, re-shuffle questions, and return to start.",
+        sidebar_student_card: "Student Identity",
+        btn_edit_id: "Edit",
+        lbl_short_class: "Class:",
+        lbl_short_absen: "Attendance:",
+        nav_grid_title: "Question Navigator (1 - 50)",
+        legend_answered: "Answered",
+        legend_flagged: "Flagged",
+        legend_empty: "Unanswered",
+        menu_lock_out: "Lock Out Menu",
+        creator_label: "Application Creator",
+        app_header_title: "NATIONAL EXAM ENGLISH SMP/MTs",
+        timer_label: "Time Remaining",
+        id_badge: "STUDENT IDENTITY GATE",
+        id_title: "Student Registration & Validation",
+        id_subtitle: "Fill in your identity to begin. Changing any identity detail automatically resets the session and shuffles question activities.",
+        sec_notice_title: "Strict Anti-Cheating Security Rules:",
+        sec_rule_1: "Exam duration is strictly limited to 80 Minutes in real-time and stops automatically when time expires.",
+        sec_rule_2: "Copy, Paste, Right-Click, and Text Selection are completely disabled during the exam.",
+        sec_rule_3: "Opening a new browser tab, search engine, or locking your device screen triggers an immediate Auto Lock-Out.",
+        sec_rule_4: "An official Certificate of Achievement is automatically issued for scores of 80 or higher.",
+        form_name: "Full Student Name",
+        form_class: "Class",
+        form_absen: "Attendance Number",
+        form_school: "Madrasah / School Origin",
+        btn_start_exam: "Start Exam & Shuffle Activities",
+        lbl_question_no: "Question No.",
+        btn_flag: "Flag / Doubtful",
+        btn_finish_exam: "Finish Exam",
+        lbl_reading_text: "Reading Passage / Stimulus",
+        lbl_question_prompt: "Question:",
+        btn_prev: "Previous",
+        btn_next: "Next",
+        res_title: "National Exam Evaluation Result",
+        res_score_lbl: "Final Score",
+        res_correct: "Correct Answers",
+        res_wrong: "Incorrect Answers",
+        res_unanswered: "Unanswered",
+        res_min_pass: "Certificate Min.",
+        cert_unlocked_msg: "Congratulations! You achieved the minimum score of 80 and unlocked your Official Certificate.",
+        btn_print_cert: "Print / Save Certificate PDF",
+        cert_heading: "Certificate of Achievement",
+        cert_given_to: "Proudly presented to:",
+        cert_body_text: "Has successfully completed the Computer Based Test (CBT) evaluation in English for SMP/MTs (Exam Package A86) with integrity and achieved a final score of:",
+        cert_creator_role: "System Architect & Application Creator,",
+        cert_locked_title: "Certificate Locked (Minimum Score 80 Required)",
+        cert_locked_desc: "Your score did not reach the minimum passing threshold of 80 to unlock the certificate. Contact your proctor/admin or change identity to start a new session.",
+        btn_back_identity: "Back to Student Identity"
+      }
+    };
+
+    /**
+     * ============================================================================
+     * 3. APPLICATION STATE & SECURITY ENGINE
+     * ============================================================================
+     */
+    const EXAM_DURATION_SECONDS = 80 * 60; // 80 Menit = 4800 Detik
+    const ADMIN_CREDENTIALS = { user: "admin", pass: "bismillah" };
+
+    let state = {
+      lang: "id",
+      theme: "dark",
+      student: {
+        name: "",
+        className: "",
+        absen: "",
+        school: ""
+      },
+      identitySignature: "",
+      examStatus: "IDLE", // IDLE | RUNNING | LOCKED_OUT | FINISHED
+      lockReason: "",
+      lockTimestamp: "",
+      graceUntil: 0, // Buffer 2 detik saat transisi awal klik mulai
+      timeLeft: EXAM_DURATION_SECONDS,
+      timerInterval: null,
+      flattenedQuestions: [], // 50 soal hasil pengacakan blok aktivitas
+      currentIndex: 0,
+      answers: {}, // { index: "A" | "B" | "C" | "D" }
+      flags: {},   // { index: true }
+      adminAuthenticated: false
+    };
+
+    // Seeded PRNG (Mulberry32) agar pengacakan konsisten namun berbeda tiap identitas
+    function createSeededRandom(seedStr) {
+      let h = 1779033703 ^ seedStr.length;
+      for (let i = 0; i < seedStr.length; i++) {
+        h = Math.imul(h ^ seedStr.charCodeAt(i), 3432918353);
+        h = (h << 13) | (h >>> 19);
+      }
+      return function () {
+        h = Math.imul(h ^ (h >>> 16), 2246822507);
+        h = Math.imul(h ^ (h >>> 13), 3266489909);
+        return ((h ^= h >>> 16) >>> 0) / 4294967296;
+      };
+    }
+
+    function shuffleArray(array, rng) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    /**
+     * Mengacak urutan blok aktivitas/teks dan pilihan jawaban A/B/C/D
+     * TANPA mengubah isi materi maupun kunci jawaban yang benar.
+     */
+    function buildShuffledExam(seedString) {
+      const rng = createSeededRandom(seedString + "-" + Date.now());
+      const shuffledBlocks = shuffleArray(ACTIVITY_BLOCKS, rng);
+      const resultList = [];
+
+      shuffledBlocks.forEach((block) => {
+        block.questions.forEach((q) => {
+          // Acak urutan 4 opsi jawaban, namun tetap melacak opsi mana yang benar
+          const shuffledOpts = shuffleArray(q.options, rng);
+          const displayLetters = ["A", "B", "C", "D"];
+          let newCorrectLetter = "A";
+
+          const mappedOptions = shuffledOpts.map((opt, idx) => {
+            const letter = displayLetters[idx];
+            if (opt.key === q.correctKey) {
+              newCorrectLetter = letter;
+            }
+            return {
+              displayKey: letter,
+              text: opt.text
+            };
+          });
+
+          resultList.push({
+            blockId: block.blockId,
+            category: block.category,
+            passageTitle: block.passageTitle,
+            passageHTML: block.passageHTML,
+            origNum: q.origNum,
+            prompt: q.prompt,
+            options: mappedOptions,
+            correctLetter: newCorrectLetter
+          });
+        });
+      });
+
+      return resultList;
+    }
+
+    /**
+     * ============================================================================
+     * 4. UI NOTIFICATIONS & CUSTOM CONFIRMATION (NO ALERT / NO CONFIRM)
+     * ============================================================================
+     */
+    function showToast(message, type = "info") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+
+      const styles = {
+        info: "bg-zinc-900 border-gold-500/60 text-white",
+        success: "bg-emerald-950 border-emerald-500 text-emerald-100",
+        warning: "bg-amber-950 border-amber-500 text-amber-100",
+        danger: "bg-crimson-950 border-crimson-500 text-crimson-100"
+      };
+
+      const icons = {
+        info: "fa-circle-info text-gold-400",
+        success: "fa-circle-check text-emerald-400",
+        warning: "fa-triangle-exclamation text-amber-400",
+        danger: "fa-shield-virus text-crimson-400"
+      };
+
+      toast.className = `pointer-events-auto flex items-start gap-3 p-3.5 rounded-2xl border shadow-2xl backdrop-blur-md text-xs sm:text-sm font-medium transition-all duration-300 transform translate-y-0 ${styles[type] || styles.info}`;
+      toast.innerHTML = `
+        <i class="fas ${icons[type] || icons.info} mt-0.5 text-base"></i>
+        <div class="flex-1 leading-snug">${message}</div>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-10px)";
+        setTimeout(() => toast.remove(), 300);
+      }, 3800);
+    }
+
+    let confirmCallback = null;
+    function showConfirmModal(title, message, onConfirm) {
+      document.getElementById("confirm-title").textContent = title;
+      document.getElementById("confirm-message").textContent = message;
+      confirmCallback = onConfirm;
+      const modal = document.getElementById("confirm-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    document.getElementById("confirm-cancel-btn").onclick = () => {
+      const modal = document.getElementById("confirm-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      confirmCallback = null;
+    };
+
+    document.getElementById("confirm-ok-btn").onclick = () => {
+      const modal = document.getElementById("confirm-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      if (typeof confirmCallback === "function") confirmCallback();
+      confirmCallback = null;
+    };
+
+    /**
+     * ============================================================================
+     * 5. THEME (LIGHT/DARK) & BILINGUAL (ID/EN) CONTROLLERS
+     * ============================================================================
+     */
+    function toggleTheme() {
+      const htmlEl = document.documentElement;
+      const icon = document.getElementById("theme-icon");
+      if (htmlEl.classList.contains("dark")) {
+        htmlEl.classList.remove("dark");
+        state.theme = "light";
+        icon.className = "fas fa-moon text-crimson-600";
+      } else {
+        htmlEl.classList.add("dark");
+        state.theme = "dark";
+        icon.className = "fas fa-sun text-gold-400";
+      }
+    }
+
+    function toggleLanguage() {
+      state.lang = state.lang === "id" ? "en" : "id";
+      document.getElementById("lang-badge").textContent = state.lang.toUpperCase();
+      applyTranslations();
+      showToast(
+        state.lang === "id"
+          ? "Bahasa antarmuka diubah ke Bahasa Indonesia."
+          : "Interface language switched to English.",
+        "info"
+      );
+    }
+
+    function applyTranslations() {
+      const dict = I18N[state.lang];
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) {
+          el.textContent = dict[key];
+        }
+      });
+    }
+
+    function toggleSidebar() {
+      const sb = document.getElementById("app-sidebar");
+      const backdrop = document.getElementById("sidebar-backdrop");
+      sb.classList.toggle("-translate-x-full");
+      backdrop.classList.toggle("hidden");
+    }
+
+    /**
+     * ============================================================================
+     * 6. STUDENT IDENTITY, AUTO-RESET & AUTO-RANDOMIZATION LOGIC
+     * ============================================================================
+     */
+    function showIdentityScreen() {
+      if (state.examStatus === "LOCKED_OUT") {
+        showToast("Sesi sedang terkunci (Lock Out). Hubungi Admin untuk membuka kunci!", "danger");
+        return;
+      }
+      // Pause anti-cheat blur saat murid mengisi form identitas
+      state.examStatus = "IDLE";
+      stopTimer();
+      document.body.classList.remove("exam-protected");
+
+      document.getElementById("view-identity").classList.remove("hidden");
+      document.getElementById("view-exam").classList.add("hidden");
+      document.getElementById("view-result").classList.add("hidden");
+    }
+
+    function startOrResumeExam(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("input-name").value.trim();
+      const className = document.getElementById("input-class").value.trim();
+      const absen = document.getElementById("input-absen").value.trim();
+      const school = document.getElementById("input-school").value.trim();
+
+      if (!name || !className || !absen || !school) {
+        showToast("Harap lengkapi seluruh data identitas murid!", "warning");
+        return;
+      }
+
+      const newSignature = `${name.toLowerCase()}|${className.toLowerCase()}|${absen.toLowerCase()}|${school.toLowerCase()}`;
+      const isIdentityChanged = state.identitySignature !== newSignature;
+
+      // Simpan identitas terbaru
+      state.student = { name, className, absen, school };
+      updateSidebarProfile();
+
+      if (isIdentityChanged || state.flattenedQuestions.length === 0) {
+        // IDENTITAS BERUBAH -> RESET TOTAL & ACAK OTOMATIS AKTIVITAS SOAL
+        state.identitySignature = newSignature;
+        state.answers = {};
+        state.flags = {};
+        state.currentIndex = 0;
+        state.timeLeft = EXAM_DURATION_SECONDS;
+        state.flattenedQuestions = buildShuffledExam(newSignature);
+
+        showToast(
+          state.lang === "id"
+            ? "Identitas baru terdeteksi! Sesi di-reset & urutan soal diacak otomatis."
+            : "New identity detected! Session reset & exam activities automatically shuffled.",
+          "success"
+        );
+      } else {
+        showToast(
+          state.lang === "id" ? "Melanjutkan sesi ujian Anda." : "Resuming your exam session.",
+          "info"
+        );
+      }
+
+      // Aktifkan mode proteksi & mulai ujian
+      state.examStatus = "RUNNING";
+      state.graceUntil = Date.now() + 2000; // 2 detik grace buffer agar klik tombol tidak memicu blur
+      document.body.classList.add("exam-protected");
+
+      document.getElementById("view-identity").classList.add("hidden");
+      document.getElementById("view-result").classList.add("hidden");
+      document.getElementById("view-exam").classList.remove("hidden");
+      document.getElementById("view-exam").classList.add("flex");
+
+      renderNavGrid();
+      renderCurrentQuestion();
+      startTimer();
+    }
+
+    function updateSidebarProfile() {
+      document.getElementById("sb-student-name").textContent = state.student.name || "Belum Diisi";
+      document.getElementById("sb-student-class").textContent = state.student.className || "-";
+      document.getElementById("sb-student-absen").textContent = state.student.absen || "-";
+      document.getElementById("sb-student-school").textContent = state.student.school || "-";
+    }
+
+    /**
+     * ============================================================================
+     * 7. REAL-TIME 80-MINUTE COUNTDOWN & AUTO-STOP
+     * ============================================================================
+     */
+    function formatTime(totalSeconds) {
+      const hrs = Math.floor(totalSeconds / 3600);
+      const mins = Math.floor((totalSeconds % 3600) / 60);
+      const secs = totalSeconds % 60;
+      return [hrs, mins, secs].map((v) => String(v).padStart(2, "0")).join(":");
+    }
+
+    function startTimer() {
+      stopTimer();
+      updateTimerDisplay();
+      state.timerInterval = setInterval(() => {
+        if (state.examStatus !== "RUNNING") return;
+
+        state.timeLeft--;
+        updateTimerDisplay();
+
+        if (state.timeLeft <= 0) {
+          state.timeLeft = 0;
+          updateTimerDisplay();
+          stopTimer();
+          showToast(
+            state.lang === "id"
+              ? "WAKTU HABIS (80 Menit)! Ujian dihentikan & dikumpulkan secara otomatis."
+              : "TIME IS UP (80 Minutes)! Exam automatically stopped and submitted.",
+            "danger"
+          );
+          finalizeExam();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+      }
+    }
+
+    function updateTimerDisplay() {
+      const timerEl = document.getElementById("realtime-timer");
+      timerEl.textContent = formatTime(state.timeLeft);
+
+      // Peringatan visual saat sisa waktu < 5 menit
+      if (state.timeLeft <= 300) {
+        timerEl.classList.remove("text-gold-400");
+        timerEl.classList.add("text-crimson-400", "animate-pulse");
+      } else {
+        timerEl.classList.add("text-gold-400");
+        timerEl.classList.remove("text-crimson-400", "animate-pulse");
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 8. EXAM NAVIGATION & QUESTION RENDERER
+     * ============================================================================
+     */
+    function renderNavGrid() {
+      const grid = document.getElementById("question-nav-grid");
+      grid.innerHTML = "";
+
+      const total = state.flattenedQuestions.length || 50;
+      let answeredCount = 0;
+
+      for (let i = 0; i < total; i++) {
+        const isCurrent = i === state.currentIndex;
+        const isAnswered = Boolean(state.answers[i]);
+        const isFlagged = Boolean(state.flags[i]);
+
+        if (isAnswered) answeredCount++;
+
+        let btnClass =
+          "bg-slate-100 dark:bg-zinc-800/90 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-zinc-700 hover:border-gold-500";
+
+        if (isFlagged) {
+          btnClass =
+            "bg-amber-400 text-zinc-950 font-extrabold border-amber-500 shadow-sm";
+        } else if (isAnswered) {
+          btnClass =
+            "bg-emerald-500 text-white font-bold border-emerald-600 shadow-sm";
+        }
+
+        if (isCurrent) {
+          btnClass += " ring-2 ring-crimson-500 ring-offset-2 ring-offset-white dark:ring-offset-zinc-900 scale-105";
+        }
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = `h-9 rounded-xl border text-xs font-mono transition-all flex items-center justify-center ${btnClass}`;
+        btn.textContent = i + 1;
+        btn.onclick = () => jumpToQuestion(i);
+        grid.appendChild(btn);
+      }
+
+      document.getElementById("nav-progress-text").textContent = `${answeredCount}/${total}`;
+      const pct = Math.round((answeredCount / total) * 100);
+      document.getElementById("nav-progress-bar").style.width = `${pct}%`;
+    }
+
+    function renderCurrentQuestion() {
+      const q = state.flattenedQuestions[state.currentIndex];
+      if (!q) return;
+
+      document.getElementById("current-q-number").textContent = state.currentIndex + 1;
+      document.getElementById("activity-group-badge").textContent = q.category;
+
+      // Toggle Flag Button Appearance
+      const flagBtn = document.getElementById("btn-flag-question");
+      if (state.flags[state.currentIndex]) {
+        flagBtn.className =
+          "px-3.5 py-2 rounded-xl text-xs font-extrabold border border-amber-500 bg-amber-400 text-zinc-950 shadow transition flex items-center gap-1.5";
+      } else {
+        flagBtn.className =
+          "px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-400/50 bg-amber-400/10 text-amber-600 dark:text-amber-400 hover:bg-amber-400/20 transition flex items-center gap-1.5";
+      }
+
+      // Passage Panel Handling (Split view if passage exists, Full width if standalone)
+      const passagePanel = document.getElementById("passage-panel");
+      const questionPanel = document.getElementById("question-panel");
+
+      if (q.passageHTML) {
+        passagePanel.classList.remove("hidden");
+        questionPanel.classList.remove("lg:col-span-12");
+        questionPanel.classList.add("lg:col-span-6");
+        document.getElementById("passage-range-badge").textContent = q.passageTitle || "Reading Text";
+        document.getElementById("passage-content").innerHTML = q.passageHTML;
+      } else {
+        passagePanel.classList.add("hidden");
+        questionPanel.classList.remove("lg:col-span-6");
+        questionPanel.classList.add("lg:col-span-12");
+      }
+
+      // Question Prompt
+      document.getElementById("question-text").innerHTML = q.prompt;
+
+      // Options Rendering
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+      const selectedLetter = state.answers[state.currentIndex];
+
+      q.options.forEach((opt) => {
+        const isSelected = selectedLetter === opt.displayKey;
+
+        const optionBtn = document.createElement("button");
+        optionBtn.type = "button";
+        optionBtn.onclick = () => selectAnswer(opt.displayKey);
+
+        optionBtn.className = isSelected
+          ? "w-full text-left p-4 rounded-2xl border-2 border-gold-500 bg-gradient-to-r from-gold-500/15 to-crimson-500/15 shadow-md flex items-start gap-3.5 transition-all"
+          : "w-full text-left p-4 rounded-2xl border border-slate-200 dark:border-zinc-800 bg-slate-50/70 dark:bg-zinc-950/70 hover:border-gold-500/60 hover:bg-gold-500/5 flex items-start gap-3.5 transition-all";
+
+        const badgeClass = isSelected
+          ? "w-8 h-8 rounded-xl bg-gradient-to-br from-gold-500 to-crimson-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0 shadow"
+          : "w-8 h-8 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-bold text-sm flex items-center justify-center shrink-0";
+
+        optionBtn.innerHTML = `
+          <span class="${badgeClass}">${opt.displayKey}</span>
+          <span class="text-sm sm:text-[15px] font-medium text-slate-800 dark:text-zinc-100 pt-1 leading-snug">${opt.text}</span>
+        `;
+
+        optionsContainer.appendChild(optionBtn);
+      });
+
+      // Prev/Next buttons state
+      document.getElementById("btn-prev-q").disabled = state.currentIndex === 0;
+      const nextBtn = document.getElementById("btn-next-q");
+      if (state.currentIndex === state.flattenedQuestions.length - 1) {
+        nextBtn.innerHTML = `<i class="fas fa-check-double"></i> <span>${state.lang === "id" ? "Selesai" : "Finish"}</span>`;
+        nextBtn.onclick = confirmFinishExam;
+      } else {
+        nextBtn.innerHTML = `<span>${I18N[state.lang].btn_next}</span> <i class="fas fa-arrow-right"></i>`;
+        nextBtn.onclick = nextQuestion;
+      }
+    }
+
+    function selectAnswer(letter) {
+      if (state.examStatus !== "RUNNING") return;
+      state.answers[state.currentIndex] = letter;
+      renderCurrentQuestion();
+      renderNavGrid();
+    }
+
+    function toggleFlagCurrent() {
+      if (state.examStatus !== "RUNNING") return;
+      if (state.flags[state.currentIndex]) {
+        delete state.flags[state.currentIndex];
+      } else {
+        state.flags[state.currentIndex] = true;
+      }
+      renderCurrentQuestion();
+      renderNavGrid();
+    }
+
+    function jumpToQuestion(idx) {
+      if (state.examStatus !== "RUNNING") return;
+      state.currentIndex = idx;
+      renderCurrentQuestion();
+      renderNavGrid();
+      // Tutup sidebar di mobile setelah memilih soal
+      if (window.innerWidth < 1024) {
+        const sb = document.getElementById("app-sidebar");
+        if (!sb.classList.contains("-translate-x-full")) {
+          toggleSidebar();
+        }
+      }
+    }
+
+    function prevQuestion() {
+      if (state.currentIndex > 0) {
+        jumpToQuestion(state.currentIndex - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (state.currentIndex < state.flattenedQuestions.length - 1) {
+        jumpToQuestion(state.currentIndex + 1);
+      }
+    }
+
+    /**
+     * ============================================================================
+     * 9. ANTI-CHEATING ENGINE (NO COPY/PASTE, NO TAB SWITCH, AUTO LOCK-OUT)
+     * ============================================================================
+     */
+    function triggerLockOut(reasonText) {
+      if (state.examStatus === "LOCKED_OUT") return;
+      state.examStatus = "LOCKED_OUT";
+      state.lockReason = reasonText;
+      state.lockTimestamp = new Date().toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      stopTimer();
+
+      document.getElementById("lockout-reason-text").textContent = reasonText;
+      document.getElementById("lock-student-name").textContent = state.student.name || "Peserta Ujian";
+      document.getElementById("lock-student-class").textContent = `${state.student.className || "-"} / No. ${state.student.absen || "-"}`;
+      document.getElementById("lock-timestamp").textContent = state.lockTimestamp;
+
+      const overlay = document.getElementById("lockout-overlay");
+      overlay.classList.remove("hidden");
+      overlay.classList.add("flex");
+    }
+
+    function manualLockOut() {
+      showConfirmModal(
+        state.lang === "id" ? "Konfirmasi Lock Out Aplikasi" : "Confirm Application Lock Out",
+        state.lang === "id"
+          ? "Apakah Anda yakin ingin mengunci aplikasi sekarang? Setelah terkunci, hanya Administrator yang dapat membukanya kembali."
+          : "Are you sure you want to lock the application now? Once locked, only an Administrator can unlock it.",
+        () => {
+          triggerLockOut(
+            state.lang === "id"
+              ? "Aplikasi dikunci secara manual melalui Menu Lock Out pada Dashboard."
+              : "Application was manually locked via the Dashboard Lock Out Menu."
+          );
+        }
+      );
+    }
+
+    // Deteksi Pindah Tab Browser, Minimize, atau Kunci Layar Perangkat
+    document.addEventListener("visibilitychange", () => {
+      if (state.examStatus === "RUNNING" && document.hidden) {
+        if (Date.now() < state.graceUntil) return;
+        triggerLockOut(
+          state.lang === "id"
+            ? "PELANGGARAN TERDETEKSI: Anda membuka tab browser baru, berpindah aplikasi, atau mengunci layar perangkat saat ujian berlangsung."
+            : "VIOLATION DETECTED: You opened a new browser tab, switched apps, or locked your device screen during an active exam."
+        );
+      }
+    });
+
+    // Deteksi Kehilangan Fokus Window (misal membuka jendela search engine lain / split screen)
+    window.addEventListener("blur", () => {
+      if (state.examStatus === "RUNNING") {
+        if (Date.now() < state.graceUntil) return;
+        // Pastikan bukan karena membuka modal admin
+        const adminModal = document.getElementById("admin-modal");
+        if (!adminModal.classList.contains("hidden")) return;
+
+        triggerLockOut(
+          state.lang === "id"
+            ? "PELANGGARAN FOKUS LAYAR: Anda keluar dari jendela ujian atau membuka aplikasi/browser lain."
+            : "WINDOW FOCUS LOST: You left the exam window or switched to another browser/application."
+        );
+      }
+    });
+
+    // Blokir Copy, Cut, Paste, Right Click & Keyboard Shortcuts saat ujian aktif
+    ["copy", "cut", "paste", "contextmenu", "selectstart", "dragstart"].forEach((evt) => {
+      document.addEventListener(evt, (e) => {
+        if (state.examStatus === "RUNNING") {
+          e.preventDefault();
+          if (evt === "copy" || evt === "paste" || evt === "cut") {
+            showToast("Fitur Copy / Paste dikunci penuh selama ujian berlangsung!", "danger");
+          }
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (state.examStatus === "RUNNING") {
+        // Blokir Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+U, Ctrl+P, Ctrl+S, Ctrl+A, F12
+        if (
+          (e.ctrlKey || e.metaKey) &&
+          ["c", "v", "x", "u", "p", "s", "a"].includes(e.key.toLowerCase())
+        ) {
+          e.preventDefault();
+          showToast("Kombinasi tombol keyboard diblokir oleh sistem keamanan CBT!", "danger");
+        }
+        if (e.key === "F12") {
+          e.preventDefault();
+        }
+      }
+    });
+
+    /**
+     * ============================================================================
+     * 10. HIDDEN ADMIN AUTHENTICATION & PROCTOR CONTROLS
+     * ============================================================================
+     */
+    function openAdminModal() {
+      const modal = document.getElementById("admin-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.getElementById("admin-error-msg").classList.add("hidden");
+
+      if (state.adminAuthenticated) {
+        updateAdminLiveMonitor();
+        document.getElementById("admin-login-form").classList.add("hidden");
+        document.getElementById("admin-control-panel").classList.remove("hidden");
+      } else {
+        document.getElementById("admin-login-form").classList.remove("hidden");
+        document.getElementById("admin-control-panel").classList.add("hidden");
+        document.getElementById("admin-username-input").value = "";
+        document.getElementById("admin-password-input").value = "";
+      }
+    }
+
+    function closeAdminModal() {
+      const modal = document.getElementById("admin-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const userVal = document.getElementById("admin-username-input").value.trim();
+      const passVal = document.getElementById("admin-password-input").value.trim();
+
+      if (userVal === ADMIN_CREDENTIALS.user && passVal === ADMIN_CREDENTIALS.pass) {
+        state.adminAuthenticated = true;
+        document.getElementById("admin-error-msg").classList.add("hidden");
+        document.getElementById("admin-login-form").classList.add("hidden");
+        document.getElementById("admin-control-panel").classList.remove("hidden");
+        updateAdminLiveMonitor();
+        showToast("Otorisasi Admin Diterima (Ahmad Budi Leksono Core).", "success");
+      } else {
+        document.getElementById("admin-error-msg").classList.remove("hidden");
+      }
+    }
+
+    function updateAdminLiveMonitor() {
+      const { correct, answered, score } = calculateScore();
+      document.getElementById("admin-live-score").textContent = `Skor Saat Ini: ${score}`;
+      document.getElementById("admin-live-stats").textContent = `${answered} dijawab / ${correct} benar dari 50`;
+    }
+
+    function adminUnlockSession() {
+      const overlay = document.getElementById("lockout-overlay");
+      overlay.classList.add("hidden");
+      overlay.classList.remove("flex");
+
+      if (state.flattenedQuestions.length > 0 && state.timeLeft > 0) {
+        state.examStatus = "RUNNING";
+        state.graceUntil = Date.now() + 2500;
+        startTimer();
+        showToast("Kunci sesi berhasil dibuka oleh Administrator. Ujian dilanjutkan.", "success");
+      } else {
+        state.examStatus = "IDLE";
+        showIdentityScreen();
+      }
+      closeAdminModal();
+    }
+
+    function adminFullReset() {
+      const overlay = document.getElementById("lockout-overlay");
+      overlay.classList.add("hidden");
+      overlay.classList.remove("flex");
+
+      stopTimer();
+      state.answers = {};
+      state.flags = {};
+      state.currentIndex = 0;
+      state.timeLeft = EXAM_DURATION_SECONDS;
+      state.identitySignature = "";
+      state.flattenedQuestions = [];
+      state.examStatus = "IDLE";
+
+      document.getElementById("input-name").value = "";
+      document.getElementById("input-class").value = "";
+      document.getElementById("input-absen").value = "";
+      document.getElementById("input-school").value = "";
+      updateSidebarProfile();
+      updateTimerDisplay();
+
+      closeAdminModal();
+      showIdentityScreen();
+      showToast("Sistem ujian telah di-reset total oleh Administrator.", "info");
+    }
+
+    function logoutAdminPanel() {
+      state.adminAuthenticated = false;
+      closeAdminModal();
+    }
+
+    /**
+     * ============================================================================
+     * 11. SCORING & CERTIFICATE GENERATION (MIN SCORE 80)
+     * ============================================================================
+     */
+    function calculateScore() {
+      let correct = 0;
+      let wrong = 0;
+      let answered = 0;
+      const total = state.flattenedQuestions.length || 50;
+
+      state.flattenedQuestions.forEach((q, idx) => {
+        const userAns = state.answers[idx];
+        if (userAns) {
+          answered++;
+          if (userAns === q.correctLetter) {
+            correct++;
+          } else {
+            wrong++;
+          }
+        }
+      });
+
+      const empty = total - answered;
+      const score = Math.round((correct / total) * 100);
+      return { correct, wrong, empty, answered, score };
+    }
+
+    function confirmFinishExam() {
+      const { empty } = calculateScore();
+      const msg =
+        empty > 0
+          ? state.lang === "id"
+            ? `Masih ada ${empty} soal yang belum dijawab. Apakah Anda yakin ingin mengakhiri ujian sekarang?`
+            : `There are still ${empty} unanswered questions. Are you sure you want to finish the exam now?`
+          : state.lang === "id"
+          ? "Semua 50 soal telah terjawab! Apakah Anda yakin ingin mengumpulkan jawaban sekarang?"
+          : "All 50 questions are answered! Are you sure you want to submit your exam now?";
+
+      showConfirmModal(
+        state.lang === "id" ? "Konfirmasi Selesai Ujian" : "Confirm Exam Submission",
+        msg,
+        finalizeExam
+      );
+    }
+
+    function finalizeExam() {
+      state.examStatus = "FINISHED";
+      stopTimer();
+      document.body.classList.remove("exam-protected");
+
+      const { correct, wrong, empty, score } = calculateScore();
+
+      document.getElementById("view-identity").classList.add("hidden");
+      document.getElementById("view-exam").classList.add("hidden");
+      document.getElementById("view-result").classList.remove("hidden");
+      document.getElementById("view-result").classList.add("flex");
+
+      document.getElementById("res-student-name").textContent = state.student.name;
+      document.getElementById("res-student-school").textContent = `${state.student.className} • ${state.student.school}`;
+      document.getElementById("res-final-score").textContent = score;
+      document.getElementById("res-correct-count").textContent = correct;
+      document.getElementById("res-wrong-count").textContent = wrong;
+      document.getElementById("res-empty-count").textContent = empty;
+
+      const certUnlocked = document.getElementById("certificate-unlocked-section");
+      const certLocked = document.getElementById("certificate-locked-section");
+
+      if (score >= 80) {
+        certUnlocked.classList.remove("hidden");
+        certLocked.classList.add("hidden");
+
+        // Populate Official Certificate
+        const randomSerial = Math.floor(100000 + Math.random() * 900000);
+        document.getElementById("cert-serial-no").textContent = `CBT-A86-${new Date().getFullYear()}-${randomSerial}`;
+        document.getElementById("cert-student-name").textContent = state.student.name.toUpperCase();
+        document.getElementById("cert-student-class").textContent = state.student.className;
+        document.getElementById("cert-student-absen").textContent = state.student.absen;
+        document.getElementById("cert-student-school").textContent = state.student.school;
+        document.getElementById("cert-score-val").textContent = score;
+
+        let predicate = "MEMUASKAN (PASS)";
+        if (score >= 95) predicate = "SUMMA CUM LAUDE (ISTIMEWA)";
+        else if (score >= 90) predicate = "SANGAT MEMUASKAN (EXCELLENT)";
+        else if (score >= 80) predicate = "MEMUASKAN (COMPETENT)";
+        document.getElementById("cert-predicate").textContent = predicate;
+
+        const nowDate = new Date().toLocaleDateString(state.lang === "id" ? "id-ID" : "en-US", {
+          day: "numeric",
+          month: "long",
+          year: "numeric"
+        });
+        document.getElementById("cert-date").textContent = nowDate;
+      } else {
+        certUnlocked.classList.add("hidden");
+        certLocked.classList.remove("hidden");
+      }
+    }
+
+    // Initialize empty grid & translations on load
+    window.addEventListener("DOMContentLoaded", () => {
+      applyTranslations();
+      // Render placeholder 50 buttons in sidebar
+      const grid = document.getElementById("question-nav-grid");
+      for (let i = 1; i <= 50; i++) {
+        const btn = document.createElement("div");
+        btn.className =
+          "h-9 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-100/50 dark:bg-zinc-900/50 text-xs font-mono text-slate-400 dark:text-zinc-600 flex items-center justify-center";
+        btn.textContent = i;
+        grid.appendChild(btn);
+      }
+    });
+  </script>
+</body>
+</html>
